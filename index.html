@@ -1,1471 +1,931 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>وارش | بازار آنلاین خدمات</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --bg: #F5F7FB;
-      --primary: #2563EB;
-      --primary-dark: #1D4ED8;
-      --primary-soft: #DBEAFE;
-      --dark: #111827;
-      --text: #1F2937;
-      --muted: #6B7280;
-      --line: #E5E7EB;
-      --white: #FFFFFF;
-      --success: #16A34A;
-      --success-soft: #DCFCE7;
-      --warn: #F59E0B;
-      --warn-soft: #FEF3C7;
-      --danger: #DC2626;
-      --danger-soft: #FEE2E2;
-      --radius: 16px;
-      --shadow: 0 8px 24px rgba(17, 24, 39, 0.06);
-      --shadow-sm: 0 2px 10px rgba(17, 24, 39, 0.04);
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { min-height: 100%; width: 100%; max-width: 100%; overflow-x: hidden; }
-    body {
-      font-family: "Vazirmatn", Tahoma, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.7;
-    }
-    body.menu-open { overflow: hidden; }
-    a { color: inherit; text-decoration: none; }
-    button, input, select, textarea { font-family: inherit; }
-    img { max-width: 100%; display: block; }
-    .container { width: 100%; max-width: 1120px; padding-inline: 16px; margin: 0 auto; }
-    #app { max-width: 100%; overflow-x: hidden; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    .header {
-      position: sticky; top: 0; z-index: 80;
-      background: #fff;
-      border-bottom: 1px solid var(--line);
-    }
-    .header-inner {
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 12px; min-height: 72px; position: relative;
-    }
-    .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 22px; color: var(--dark); flex: 0 0 auto; }
-    .logo {
-      width: 40px; height: 40px; border-radius: 12px;
-      background: linear-gradient(145deg, #2563EB, #1E3A8A);
-      display: grid; place-items: center; box-shadow: var(--shadow-sm);
-    }
-    .nav {
-      display: flex; align-items: center; gap: 4px; flex-wrap: wrap; justify-content: flex-end;
-      position: fixed; top: 0; left: 0; right: 0;
-      height: 72px;
-      width: 100%;
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 0 16px 0 16px;
-      padding-right: 180px;
-      box-sizing: border-box;
-      z-index: 60;
-      pointer-events: none;
-    }
-    .nav a, .nav button.linkish { pointer-events: auto; }
-    #authNav { display: contents; }
-    .nav a, .nav button.linkish {
-      background: none; border: 0; cursor: pointer;
-      padding: 8px 12px; border-radius: 10px; color: var(--text); font-weight: 500;
-      white-space: nowrap;
-    }
-    .nav a:hover, .nav button.linkish:hover, .nav a.active { background: var(--primary-soft); color: var(--primary); }
-    .cart-link { position: relative; padding-left: 18px; }
-    .nav-backdrop {
-      display: none; position: fixed; inset: 0; background: rgba(17,24,39,.4); z-index: 70;
-    }
-    .nav-backdrop.show { display: block; }
-    .badge-count {
-      position: absolute; top: 2px; left: 2px;
-      min-width: 18px; height: 18px; padding: 0 5px;
-      background: var(--danger); color: #fff; border-radius: 999px;
-      font-size: 11px; display: grid; place-items: center;
-    }
-    .btn {
-      border: 0; cursor: pointer; border-radius: 12px;
-      padding: 10px 16px; font-weight: 600; transition: .2s ease;
-      display: inline-flex; align-items: center; justify-content: center; gap: 6px;
-    }
-    .btn:disabled { opacity: .55; cursor: not-allowed; }
-    .btn-primary { background: var(--primary); color: #fff; }
-    .btn-primary:hover { background: var(--primary-dark); }
-    .btn-success { background: var(--success); color: #fff; }
-    .btn-danger { background: var(--danger); color: #fff; }
-    .btn-ghost { background: #fff; border: 1px solid var(--line); color: var(--text); }
-    .btn-soft { background: var(--primary-soft); color: var(--primary); }
-    .btn-sm { padding: 7px 11px; font-size: 13px; border-radius: 10px; }
-    .btn-block { width: 100%; }
+<title>وارش | بازار خدمات آنلاین</title>
 
-    .hero {
-      padding: 48px 0 28px;
-    }
-    .hero-card {
-      background: linear-gradient(135deg, #EFF6FF 0%, #FFFFFF 55%, #F8FAFC 100%);
-      border: 1px solid #E2E8F0;
-      border-radius: 24px;
-      padding: 42px 28px;
-      box-shadow: var(--shadow);
-      text-align: center;
-    }
-    .hero h1 { font-size: clamp(26px, 4vw, 42px); color: var(--dark); margin-bottom: 8px; }
-    .hero p { color: var(--muted); font-size: 18px; margin-bottom: 22px; }
-    .search-box {
-      display: flex; gap: 8px; max-width: 680px; margin: 0 auto;
-      background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 8px;
-      box-shadow: var(--shadow-sm);
-    }
-    .search-box input {
-      flex: 1; min-width: 0; border: 0; outline: none; padding: 12px 14px; font-size: 16px; background: transparent;
-    }
-    .cats { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 18px; }
-    .chip {
-      background: #fff; border: 1px solid var(--line); color: var(--text);
-      border-radius: 999px; padding: 7px 14px; cursor: pointer; font-weight: 500;
-    }
-    .chip.active, .chip:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-soft); }
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Tahoma,Arial,sans-serif;
+}
 
-    .section { padding: 28px 0 48px; }
-    .section-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; gap: 12px; }
-    .section-head h2 { font-size: 22px; color: var(--dark); }
+html{
+    scroll-behavior:smooth;
+}
 
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr)); gap: 16px; }
-    .card {
-      background: #fff; border: 1px solid #EEF2F7; border-radius: var(--radius);
-      box-shadow: var(--shadow-sm); overflow: hidden;
-    }
-    .service-cover {
-      height: 148px; display: grid; place-items: center; color: #fff; font-weight: 800; font-size: 28px;
-      position: relative;
-    }
-    .service-body { padding: 14px; }
-    .muted { color: var(--muted); font-size: 13px; }
-    .price { color: var(--primary); font-weight: 800; font-size: 18px; }
-    .row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-    .stars { color: #F59E0B; font-weight: 700; }
+body{
+    background:#080b14;
+    color:#fff;
+    min-height:100vh;
+}
 
-    .filters { display: grid; grid-template-columns: 240px 1fr; gap: 18px; }
-    .side { background: #fff; border-radius: var(--radius); padding: 16px; box-shadow: var(--shadow-sm); height: fit-content; }
-    .field { margin-bottom: 12px; }
-    .field label { display: block; font-size: 13px; margin-bottom: 6px; color: var(--muted); }
-    .field input, .field select, .field textarea {
-      width: 100%; border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; background: #fff; outline: none;
-    }
-    .field textarea { min-height: 110px; resize: vertical; }
+/* Header */
 
-    .detail { display: grid; grid-template-columns: 1.1fr .9fr; gap: 20px; }
-    .cover-lg { height: 320px; border-radius: var(--radius); display: grid; place-items: center; color: #fff; font-size: 48px; font-weight: 800; }
-    .trust {
-      display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin: 12px 0;
-    }
-    .trust span {
-      background: var(--bg); border-radius: 12px; padding: 10px; font-size: 13px;
-    }
-    .level-badge {
-      display: inline-flex; align-items: center; gap: 4px;
-      background: var(--warn-soft); color: #92400E; border-radius: 999px; padding: 3px 10px; font-size: 12px; font-weight: 700;
-    }
-    .verified { background: var(--success-soft); color: #166534; border-radius: 999px; padding: 3px 8px; font-size: 12px; font-weight: 700; }
+header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    background:rgba(8,11,20,.88);
+    backdrop-filter:blur(15px);
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
 
-    .table { width: 100%; border-collapse: collapse; background: #fff; border-radius: var(--radius); overflow: hidden; }
-    .table th, .table td { padding: 12px; text-align: right; border-bottom: 1px solid var(--line); font-size: 14px; }
-    .table th { background: #F8FAFC; color: var(--muted); font-weight: 600; }
+.navbar{
+    max-width:1200px;
+    margin:auto;
+    padding:15px 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+}
 
-    .status {
-      display: inline-block; border-radius: 999px; padding: 3px 10px; font-size: 12px; font-weight: 700;
-    }
-    .s-pending { background: var(--warn-soft); color: #92400E; }
-    .s-paid { background: #E0E7FF; color: #3730A3; }
-    .s-progress { background: var(--primary-soft); color: #1D4ED8; }
-    .s-delivered { background: #E0F2FE; color: #075985; }
-    .s-revise { background: #FCE7F3; color: #9D174D; }
-    .s-done { background: var(--success-soft); color: #166534; }
-    .s-cancel { background: var(--danger-soft); color: #991B1B; }
-    .s-dispute { background: #F3E8FF; color: #6B21A8; }
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:25px;
+    font-weight:bold;
+}
 
-    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 18px; }
-    .stat { background: #fff; border-radius: var(--radius); padding: 16px; box-shadow: var(--shadow-sm); }
-    .stat b { display: block; font-size: 22px; color: var(--dark); }
+.logoIcon{
+    width:43px;
+    height:43px;
+    border-radius:14px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(135deg,#7c3aed,#2563eb);
+    box-shadow:0 0 25px rgba(99,102,241,.4);
+}
 
-    .auth-wrap { max-width: 440px; margin: 40px auto; }
-    .footer { padding: 28px 0 40px; color: var(--muted); text-align: center; font-size: 13px; }
-    .toast-wrap { position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 80; display: grid; gap: 8px; pointer-events: none; }
-    .toast {
-      pointer-events: auto; max-width: 420px; margin-right: auto;
-      background: var(--dark); color: #fff; border-radius: 14px; padding: 12px 14px;
-      box-shadow: var(--shadow);
+.navLinks{
+    display:flex;
+    gap:25px;
+}
+
+.navLinks a{
+    color:#cbd5e1;
+    text-decoration:none;
+    font-size:14px;
+    transition:.3s;
+}
+
+.navLinks a:hover{
+    color:#fff;
+}
+
+.navButtons{
+    display:flex;
+    gap:8px;
+}
+
+.btn{
+    border:none;
+    border-radius:12px;
+    padding:11px 17px;
+    cursor:pointer;
+    font-weight:bold;
+    transition:.3s;
+}
+
+.btnLogin{
+    background:#151b2d;
+    color:#fff;
+}
+
+.btnRegister{
+    background:linear-gradient(135deg,#7c3aed,#2563eb);
+    color:white;
+}
+
+.btn:hover{
+    transform:translateY(-2px);
+}
+
+/* Hero */
+
+.hero{
+    max-width:1200px;
+    margin:auto;
+    padding:90px 20px 70px;
+    text-align:center;
+}
+
+.badge{
+    display:inline-block;
+    background:rgba(124,58,237,.12);
+    border:1px solid rgba(124,58,237,.35);
+    color:#c4b5fd;
+    padding:8px 15px;
+    border-radius:30px;
+    font-size:13px;
+    margin-bottom:22px;
+}
+
+.hero h1{
+    font-size:clamp(38px,7vw,72px);
+    line-height:1.2;
+    margin-bottom:20px;
+}
+
+.gradient{
+    background:linear-gradient(90deg,#a78bfa,#60a5fa);
+    -webkit-background-clip:text;
+    color:transparent;
+}
+
+.hero p{
+    max-width:650px;
+    margin:auto;
+    color:#94a3b8;
+    line-height:2;
+    font-size:16px;
+}
+
+.heroButtons{
+    margin-top:30px;
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+.mainBtn{
+    background:linear-gradient(135deg,#7c3aed,#2563eb);
+    color:white;
+    padding:15px 27px;
+    border-radius:14px;
+    border:none;
+    font-size:15px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.secondaryBtn{
+    background:#121827;
+    color:white;
+    padding:15px 27px;
+    border-radius:14px;
+    border:1px solid #273149;
+    font-size:15px;
+    cursor:pointer;
+}
+
+/* Search */
+
+.searchBox{
+    max-width:750px;
+    margin:20px auto 0;
+    display:flex;
+    background:#111827;
+    border:1px solid #263149;
+    border-radius:18px;
+    padding:7px;
+}
+
+.searchBox input{
+    flex:1;
+    background:transparent;
+    border:none;
+    outline:none;
+    color:white;
+    padding:13px;
+    font-size:14px;
+}
+
+.searchBox button{
+    border:none;
+    border-radius:13px;
+    padding:0 22px;
+    background:#7c3aed;
+    color:white;
+    font-weight:bold;
+}
+
+/* Section */
+
+section{
+    max-width:1200px;
+    margin:auto;
+    padding:70px 20px;
+}
+
+.sectionTitle{
+    text-align:center;
+    margin-bottom:35px;
+}
+
+.sectionTitle h2{
+    font-size:32px;
+    margin-bottom:12px;
+}
+
+.sectionTitle p{
+    color:#8491a7;
+}
+
+/* Categories */
+
+.categories{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+}
+
+.category{
+    background:#101624;
+    border:1px solid #202b41;
+    border-radius:18px;
+    padding:25px 15px;
+    text-align:center;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.category:hover{
+    transform:translateY(-5px);
+    border-color:#6d5ce7;
+    background:#141b2c;
+}
+
+.categoryIcon{
+    font-size:32px;
+    margin-bottom:12px;
+}
+
+.category h3{
+    font-size:15px;
+}
+
+.category p{
+    margin-top:8px;
+    color:#718096;
+    font-size:12px;
+}
+
+/* Services */
+
+.services{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+
+.service{
+    background:#101624;
+    border:1px solid #202b41;
+    border-radius:20px;
+    overflow:hidden;
+    transition:.3s;
+}
+
+.service:hover{
+    transform:translateY(-5px);
+    border-color:#6d5ce7;
+}
+
+.serviceImage{
+    height:170px;
+    background:linear-gradient(135deg,#312e81,#1e3a8a);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:55px;
+}
+
+.serviceContent{
+    padding:20px;
+}
+
+.serviceTag{
+    color:#a78bfa;
+    font-size:12px;
+}
+
+.service h3{
+    margin:10px 0;
+    font-size:17px;
+}
+
+.service p{
+    color:#8995a8;
+    font-size:13px;
+    line-height:1.8;
+}
+
+.serviceBottom{
+    margin-top:18px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.price{
+    font-weight:bold;
+    color:#fff;
+}
+
+.orderBtn{
+    background:#1d4ed8;
+    border:none;
+    color:#fff;
+    border-radius:10px;
+    padding:9px 13px;
+    cursor:pointer;
+}
+
+/* About */
+
+.about{
+    background:linear-gradient(
+        135deg,
+        rgba(124,58,237,.12),
+        rgba(37,99,235,.08)
+    );
+    border:1px solid #242e45;
+    border-radius:28px;
+    padding:50px;
+    text-align:center;
+}
+
+.about h2{
+    font-size:32px;
+    margin-bottom:15px;
+}
+
+.about p{
+    color:#94a3b8;
+    line-height:2;
+    max-width:700px;
+    margin:auto;
+}
+
+/* Stats */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+    margin-top:30px;
+}
+
+.stat{
+    background:#101624;
+    border:1px solid #202b41;
+    border-radius:18px;
+    padding:25px;
+    text-align:center;
+}
+
+.stat strong{
+    display:block;
+    font-size:28px;
+    margin-bottom:7px;
+}
+
+.stat span{
+    color:#7d899d;
+    font-size:13px;
+}
+
+/* Footer */
+
+footer{
+    border-top:1px solid #1d2638;
+    margin-top:50px;
+    padding:40px 20px;
+    text-align:center;
+    color:#6f7b90;
+}
+
+.footerLogo{
+    color:white;
+    font-size:22px;
+    font-weight:bold;
+    margin-bottom:10px;
+}
+
+footer p{
+    font-size:12px;
+}
+
+/* Mobile */
+
+@media(max-width:800px){
+
+    .navLinks{
+        display:none;
     }
-    .toast.ok { background: #14532D; }
-    .toast.err { background: #7F1D1D; }
-    .hidden { display: none !important; }
-    .qty { display: flex; align-items: center; gap: 8px; }
-    .qty button { width: 32px; height: 32px; border-radius: 8px; border: 1px solid var(--line); background: #fff; cursor: pointer; }
-    .menu-btn { display: none; z-index: 80; position: relative; }
-    .tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
-    .empty { background: #fff; border-radius: var(--radius); padding: 36px; text-align: center; color: var(--muted); }
-    .table-wrap { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-    @media (max-width: 980px) {
-      .filters, .detail { grid-template-columns: 1fr; }
-      .trust { grid-template-columns: 1fr; }
-      .menu-btn { display: inline-flex; }
-      .nav {
-        display: flex; flex-direction: column; flex-wrap: nowrap;
-        align-items: stretch; justify-content: flex-start;
-        position: fixed;
-        top: 0; right: 0; bottom: 0; left: auto;
-        width: min(86vw, 340px);
-        max-width: 340px;
-        height: 100vh;
-        height: 100dvh;
-        margin: 0;
-        background: #fff;
-        border-left: 1px solid var(--line);
-        padding: 88px 16px 28px;
-        gap: 8px;
-        transform: translateX(100%);
-        transition: transform .22s ease;
-        z-index: 75;
-        box-shadow: var(--shadow);
-        overflow-y: auto;
-        pointer-events: auto;
-      }
-      .nav.open { transform: translateX(0); }
-      .nav a, .nav button.linkish {
-        width: 100%;
-        text-align: right;
-        white-space: normal;
-        padding: 12px 14px;
-        font-size: 16px;
-      }
-      .cover-lg { height: 200px; }
-      .hero-card { padding: 28px 16px; }
-      .search-box { flex-direction: column; }
+
+    .navbar{
+        padding:12px 15px;
     }
-  </style>
+
+    .logo{
+        font-size:21px;
+    }
+
+    .logoIcon{
+        width:38px;
+        height:38px;
+    }
+
+    .btn{
+        padding:9px 11px;
+        font-size:12px;
+    }
+
+    .hero{
+        padding:65px 18px 50px;
+    }
+
+    .hero h1{
+        font-size:40px;
+    }
+
+    .hero p{
+        font-size:14px;
+    }
+
+    .searchBox{
+        flex-direction:row;
+    }
+
+    .searchBox button{
+        padding:0 15px;
+    }
+
+    .categories{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .services{
+        grid-template-columns:1fr;
+    }
+
+    .about{
+        padding:30px 20px;
+    }
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:400px){
+
+    .navButtons .btnLogin{
+        display:none;
+    }
+
+    .hero h1{
+        font-size:34px;
+    }
+
+    .categories{
+        gap:10px;
+    }
+
+}
+</style>
 </head>
+
 <body>
-  <header class="header">
-    <div class="container header-inner">
-      <a class="brand" href="#/" data-nav>
-        <span class="logo" aria-hidden="true">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-            <path d="M4 5.5L12 20L20 5.5" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M8.2 5.5H15.8" stroke="#93C5FD" stroke-width="2.2" stroke-linecap="round"/>
-          </svg>
-        </span>
-        وارش
-      </a>
-      <button class="btn btn-ghost menu-btn" id="menuBtn" type="button" aria-expanded="false">منو</button>
-    </div>
-  </header>
-  <div class="nav-backdrop" id="navBackdrop"></div>
-  <nav class="nav" id="mainNav" aria-label="منوی اصلی">
-    <a href="#/" data-nav>خانه</a>
-    <a href="#/services" data-nav>خدمات</a>
-    <a href="#/cart" class="cart-link" data-nav>سبد خرید <span class="badge-count hidden" id="cartBadge">0</span></a>
-    <a href="#/favorites" data-nav>علاقه‌مندی</a>
-    <a href="#/feedback" data-nav>بازخورد</a>
-    <span id="authNav"></span>
-  </nav>
 
-  <main class="container" id="app"></main>
-  <footer class="footer">وارش — بازار آنلاین خدمات · نسخه آزمایشی محلی</footer>
-  <div class="toast-wrap" id="toasts"></div>
+<header>
 
-  <script>
-  (function () {
-    const KEYS = {
-      users: "varesh_users_v2",
-      services: "varesh_services_v2",
-      orders: "varesh_orders_v2",
-      cart: "varesh_cart_v2",
-      favorites: "varesh_fav_v2",
-      feedback: "varesh_fb_v2",
-      reports: "varesh_reports_v2",
-      reviews: "varesh_reviews_v2",
-      session: "varesh_session_v2"
-    };
-    const FEE_RATE = 0.1;
-    const CATS = ["طراحی", "برنامه‌نویسی", "تولید محتوا", "ترجمه", "بازاریابی", "ویدیو", "نویسندگی"];
-    const STATUS = {
-      pending: "در انتظار پرداخت",
-      paid: "پرداخت شده",
-      progress: "در حال انجام",
-      delivered: "تحویل داده شده",
-      revise: "درخواست اصلاح",
-      done: "تکمیل شده",
-      cancel: "لغو شده",
-      dispute: "اختلاف"
-    };
-    const STATUS_CLASS = {
-      pending: "s-pending", paid: "s-paid", progress: "s-progress", delivered: "s-delivered",
-      revise: "s-revise", done: "s-done", cancel: "s-cancel", dispute: "s-dispute"
-    };
-    const COVERS = {
-      "طراحی": ["#2563EB", "#1E3A8A", "ط"],
-      "برنامه‌نویسی": ["#0F766E", "#134E4A", "ب"],
-      "تولید محتوا": ["#7C3AED", "#4C1D95", "م"],
-      "ترجمه": ["#C2410C", "#7C2D12", "ت"],
-      "بازاریابی": ["#DB2777", "#9D174D", "ب"],
-      "ویدیو": ["#0369A1", "#0C4A6E", "و"],
-      "نویسندگی": ["#4F46E5", "#312E81", "ن"]
-    };
+<nav class="navbar">
 
-    const db = {
-      get(k, fallback) {
-        try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : fallback; }
-        catch { return fallback; }
-      },
-      set(k, v) { localStorage.setItem(k, JSON.stringify(v)); }
-    };
+<div class="logo">
+    <div class="logoIcon">و</div>
+    وارش
+</div>
 
-    function uid(prefix) {
-      return prefix + Math.random().toString(36).slice(2, 8) + Date.now().toString(36).slice(-4);
-    }
-    function hash(str) {
-      let h = 5381;
-      for (let i = 0; i < str.length; i++) h = ((h << 5) + h) + str.charCodeAt(i);
-      return "h" + (h >>> 0).toString(16);
-    }
-    function money(n) { return Number(n || 0).toLocaleString("fa-IR") + " تومان"; }
-    function today() { return new Date().toISOString(); }
-    function faDate(iso) {
-      try { return new Date(iso).toLocaleDateString("fa-IR"); } catch { return iso; }
-    }
-    function levelOf(completed) {
-      if (completed >= 50) return "برتر";
-      if (completed >= 20) return "حرفه‌ای";
-      if (completed >= 5) return "فعال";
-      return "تازه‌کار";
-    }
-    function toast(msg, type) {
-      const wrap = document.getElementById("toasts");
-      const el = document.createElement("div");
-      el.className = "toast " + (type || "ok");
-      el.textContent = msg;
-      wrap.appendChild(el);
-      setTimeout(() => el.remove(), 2800);
-    }
-    function currentUser() {
-      const s = db.get(KEYS.session, null);
-      if (!s) return null;
-      return db.get(KEYS.users, []).find(u => u.id === s.userId) || null;
-    }
-    function requireRole(roles) {
-      const u = currentUser();
-      if (!u || !roles.includes(u.role)) return null;
-      return u;
-    }
+<div class="navLinks">
+    <a href="#home">خانه</a>
+    <a href="#categories">دسته‌بندی‌ها</a>
+    <a href="#services">خدمات</a>
+    <a href="#about">درباره وارش</a>
+</div>
 
-    function seedIfNeeded() {
-      if (db.get(KEYS.users, null)) return;
-      const admin = {
-        id: "u_admin", name: "مدیر وارش", email: "admin@varesh.ir",
-        pass: hash("123456"), role: "admin", bio: "مدیر پلتفرم",
-        avatar: "", verified: true, joinedAt: "2025-01-10T10:00:00.000Z",
-        rating: 0, completedOrders: 0, onTimePercent: 0, responseHours: 0,
-        cancelPercent: 0, reviewCount: 0
-      };
-      const p1 = {
-        id: "u_p1", name: "سارا نوری", email: "sara@varesh.ir", pass: hash("123456"),
-        role: "provider", bio: "طراح رابط کاربری با تمرکز روی تجربه کاربری تمیز و کاربردی.",
-        avatar: "", verified: true, joinedAt: "2025-03-12T10:00:00.000Z",
-        rating: 4.8, completedOrders: 127, onTimePercent: 96, responseHours: 2,
-        cancelPercent: 2, reviewCount: 34
-      };
-      const p2 = {
-        id: "u_p2", name: "امیر رضایی", email: "amir@varesh.ir", pass: hash("123456"),
-        role: "provider", bio: "برنامه‌نویس فرانت‌اند و توسعه وب‌اپلیکیشن.",
-        avatar: "", verified: true, joinedAt: "2025-02-02T10:00:00.000Z",
-        rating: 4.6, completedOrders: 54, onTimePercent: 91, responseHours: 4,
-        cancelPercent: 5, reviewCount: 21
-      };
-      const p3 = {
-        id: "u_p3", name: "نگار احمدی", email: "negar@varesh.ir", pass: hash("123456"),
-        role: "provider", bio: "تولید محتوای فارسی و استراتژی محتوا.",
-        avatar: "", verified: false, joinedAt: "2026-01-18T10:00:00.000Z",
-        rating: 4.3, completedOrders: 8, onTimePercent: 88, responseHours: 6,
-        cancelPercent: 7, reviewCount: 5
-      };
-      const c1 = {
-        id: "u_c1", name: "مشتری نمونه", email: "user@varesh.ir", pass: hash("123456"),
-        role: "customer", bio: "", avatar: "", verified: false, joinedAt: "2026-04-01T10:00:00.000Z",
-        rating: 0, completedOrders: 0, onTimePercent: 0, responseHours: 0, cancelPercent: 0, reviewCount: 0
-      };
-      [p1, p2, p3].forEach(p => { p.level = levelOf(p.completedOrders); });
-      const services = [
-        { id: "s1", providerId: p1.id, title: "طراحی رابط کاربری وب‌سایت", desc: "طراحی UI مدرن، ریسپانسیو و آماده تحویل به تیم توسعه.", category: "طراحی", price: 2500000, deliveryDays: 7, image: "", rating: 4.8, orderCount: 62, createdAt: "2026-06-01T10:00:00.000Z", status: "active" },
-        { id: "s2", providerId: p1.id, title: "طراحی هویت بصری برند", desc: "لوگوی هندسی، پالت رنگ و راهنمای استفاده.", category: "طراحی", price: 1800000, deliveryDays: 5, image: "", rating: 4.7, orderCount: 41, createdAt: "2026-06-11T10:00:00.000Z", status: "active" },
-        { id: "s3", providerId: p2.id, title: "توسعه لندینگ صفحه فروش", desc: "پیاده‌سازی سریع صفحه فرود با فرم و آمار.", category: "برنامه‌نویسی", price: 3200000, deliveryDays: 8, image: "", rating: 4.6, orderCount: 29, createdAt: "2026-05-20T10:00:00.000Z", status: "active" },
-        { id: "s4", providerId: p2.id, title: "رفع باگ و بهینه‌سازی سایت", desc: "بررسی عملکرد، رفع خطا و بهبود سرعت.", category: "برنامه‌نویسی", price: 900000, deliveryDays: 3, image: "", rating: 4.5, orderCount: 18, createdAt: "2026-07-02T10:00:00.000Z", status: "active" },
-        { id: "s5", providerId: p3.id, title: "تقویم محتوا برای ۳۰ روز", desc: "برنامه محتوایی شبکه‌های اجتماعی همراه ایده پست.", category: "تولید محتوا", price: 1200000, deliveryDays: 4, image: "", rating: 4.3, orderCount: 8, createdAt: "2026-08-01T10:00:00.000Z", status: "active" },
-        { id: "s6", providerId: p3.id, title: "ترجمه تخصصی مقاله", desc: "ترجمه روان انگلیسی به فارسی با حفظ لحن تخصصی.", category: "ترجمه", price: 700000, deliveryDays: 2, image: "", rating: 4.4, orderCount: 11, createdAt: "2026-08-12T10:00:00.000Z", status: "active" },
-        { id: "s7", providerId: p1.id, title: "سناریو ویدیو معرفی برند", desc: "متن و استوری‌برد کوتاه برای ویدیو معرفی.", category: "ویدیو", price: 1500000, deliveryDays: 6, image: "", rating: 4.9, orderCount: 15, createdAt: "2026-04-22T10:00:00.000Z", status: "active" },
-        { id: "s8", providerId: p2.id, title: "کمپین بازاریابی محتوایی", desc: "برنامه کمپین، کانال‌ها و شاخص‌های سنجش.", category: "بازاریابی", price: 2100000, deliveryDays: 9, image: "", rating: 4.2, orderCount: 7, createdAt: "2026-03-18T10:00:00.000Z", status: "active" },
-        { id: "s9", providerId: p3.id, title: "بازنویسی متن فروش", desc: "بازنویسی صفحه محصول با تمرکز روی وضوح و اعتماد.", category: "نویسندگی", price: 650000, deliveryDays: 2, image: "", rating: 4.1, orderCount: 6, createdAt: "2026-09-01T10:00:00.000Z", status: "active" }
-      ];
-      const reviews = [
-        { id: "r1", serviceId: "s1", providerId: p1.id, userId: c1.id, rating: 5, text: "تحویل مرتب و دقیق بود.", createdAt: "2026-07-01T10:00:00.000Z" },
-        { id: "r2", serviceId: "s3", providerId: p2.id, userId: c1.id, rating: 4, text: "کد تمیز و قابل توسعه بود.", createdAt: "2026-07-12T10:00:00.000Z" }
-      ];
-      db.set(KEYS.users, [admin, p1, p2, p3, c1]);
-      db.set(KEYS.services, services);
-      db.set(KEYS.orders, []);
-      db.set(KEYS.cart, {});
-      db.set(KEYS.favorites, {});
-      db.set(KEYS.feedback, []);
-      db.set(KEYS.reports, []);
-      db.set(KEYS.reviews, reviews);
-    }
+<div class="navButtons">
+    <button class="btn btnLogin" onclick="login()">ورود</button>
+    <button class="btn btnRegister" onclick="register()">ثبت‌نام</button>
+</div>
 
-    function users() { return db.get(KEYS.users, []); }
-    function saveUsers(list) { db.set(KEYS.users, list); }
-    function services() { return db.get(KEYS.services, []); }
-    function saveServices(list) { db.set(KEYS.services, list); }
-    function orders() { return db.get(KEYS.orders, []); }
-    function saveOrders(list) { db.set(KEYS.orders, list); }
-    function providerOf(id) { return users().find(u => u.id === id); }
-    function serviceOf(id) { return services().find(s => s.id === id); }
+</nav>
 
-    function cartOf(uid) {
-      const all = db.get(KEYS.cart, {});
-      return all[uid] || [];
-    }
-    function saveCart(uid, items) {
-      const all = db.get(KEYS.cart, {});
-      all[uid] = items;
-      db.set(KEYS.cart, all);
-      updateCartBadge();
-    }
-    function favOf(uid) {
-      const all = db.get(KEYS.favorites, {});
-      return all[uid] || [];
-    }
-    function saveFav(uid, ids) {
-      const all = db.get(KEYS.favorites, {});
-      all[uid] = ids;
-      db.set(KEYS.favorites, all);
-    }
+</header>
 
-    function guestCartKey() { return "guest"; }
-    function activeCartId() {
-      const u = currentUser();
-      return u ? u.id : guestCartKey();
-    }
 
-    function addToCart(serviceId, qty) {
-      const u = currentUser();
-      if (u && u.role === "admin") { toast("مدیر امکان خرید ندارد", "err"); return; }
-      if (u && u.role === "provider") {
-        const s = serviceOf(serviceId);
-        if (s && s.providerId === u.id) { toast("نمی‌توانید خدمت خودتان را سفارش دهید", "err"); return; }
-      }
-      const id = activeCartId();
-      const items = cartOf(id);
-      const found = items.find(i => i.serviceId === serviceId);
-      if (found) found.qty += (qty || 1);
-      else items.push({ serviceId, qty: qty || 1 });
-      saveCart(id, items);
-      toast("✓ خدمت با موفقیت به سبد اضافه شد");
-    }
+<main>
 
-    function updateCartBadge() {
-      const items = cartOf(activeCartId());
-      const n = items.reduce((s, i) => s + i.qty, 0);
-      const el = document.getElementById("cartBadge");
-      if (!el) return;
-      el.textContent = n;
-      el.classList.toggle("hidden", n === 0);
-    }
+<!-- HERO -->
 
-    function coverStyle(cat) {
-      const c = COVERS[cat] || ["#2563EB", "#1E3A8A", "و"];
-      return 'style="background:linear-gradient(135deg,' + c[0] + ',' + c[1] + ')"';
-    }
-    function coverLetter(cat) {
-      return (COVERS[cat] || ["", "", "و"])[2];
-    }
+<div class="hero" id="home">
 
-    function trustBlock(p) {
-      if (!p) return "";
-      return `
-        <div class="trust">
-          <span>⭐ ${(p.rating || 0).toLocaleString("fa-IR")}</span>
-          <span>🛒 ${(p.completedOrders || 0).toLocaleString("fa-IR")} سفارش تکمیل‌شده</span>
-          <span>⏱️ ${(p.onTimePercent || 0).toLocaleString("fa-IR")}٪ تحویل به‌موقع</span>
-          <span>💬 پاسخ‌گویی حدود ${(p.responseHours || 0).toLocaleString("fa-IR")} ساعت</span>
-          <span>🔄 لغو ${(p.cancelPercent || 0).toLocaleString("fa-IR")}٪</span>
-          <span>📝 ${(p.reviewCount || 0).toLocaleString("fa-IR")} نظر واقعی</span>
-        </div>
-        <div class="row" style="margin-bottom:10px">
-          <span class="level-badge">🏆 ${p.level || levelOf(p.completedOrders || 0)}</span>
-          ${p.verified ? '<span class="verified">✅ تأییدشده</span>' : '<span class="muted">احراز هویت نشده</span>'}
-        </div>
-        <p class="muted">📅 عضویت از ${faDate(p.joinedAt)}</p>
-      `;
-    }
+<div class="badge">
+    ✨ بازار خدمات آنلاین وارش
+</div>
 
-    function serviceCard(s) {
-      const p = providerOf(s.providerId) || { name: "نامشخص" };
-      const img = s.image
-        ? `<div class="service-cover"><img src="${s.image}" alt="" style="width:100%;height:100%;object-fit:cover"></div>`
-        : `<div class="service-cover" ${coverStyle(s.category)}>${coverLetter(s.category)}</div>`;
-      return `
-        <article class="card">
-          ${img}
-          <div class="service-body">
-            <div class="muted">${s.category}</div>
-            <h3 style="font-size:16px;margin:4px 0 8px">${esc(s.title)}</h3>
-            <div class="row"><span class="price">${money(s.price)}</span><span class="stars">⭐ ${(s.rating || 0).toLocaleString("fa-IR")}</span></div>
-            <p class="muted">تحویل ${s.deliveryDays.toLocaleString("fa-IR")} روز · ${esc(p.name)}</p>
-            <div class="row" style="margin-top:10px">
-              <a class="btn btn-ghost btn-sm" href="#/service/${s.id}">مشاهده</a>
-              <button class="btn btn-primary btn-sm" data-add="${s.id}">افزودن به سبد</button>
-            </div>
-          </div>
-        </article>`;
-    }
+<h1>
+    هر خدمتی که می‌خواهی،
+    <br>
+    <span class="gradient">اینجا پیداش کن</span>
+</h1>
 
-    function esc(str) {
-      return String(str || "").replace(/[&<>"']/g, m => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[m]));
-    }
+<p>
+    وارش بستری برای پیدا کردن و سفارش خدمات مختلف است؛
+    جایی که می‌توانی خدمات موردنیازت را راحت‌تر پیدا کنی.
+</p>
 
-    function renderNav() {
-      const u = currentUser();
-      const box = document.getElementById("authNav");
-      if (!u) {
-        box.innerHTML = `<a href="#/login" data-nav>حساب کاربری</a>`;
-      } else if (u.role === "admin") {
-        box.innerHTML = `<a href="#/admin" data-nav>پنل مدیریت</a><button class="linkish" id="logoutBtn" type="button">خروج</button>`;
-      } else if (u.role === "provider") {
-        box.innerHTML = `<a href="#/provider-panel" data-nav>پنل ارائه‌دهنده</a><button class="linkish" id="logoutBtn" type="button">خروج</button>`;
-      } else {
-        box.innerHTML = `<a href="#/orders" data-nav>سفارش‌های من</a><a href="#/account" data-nav>${esc(u.name)}</a><button class="linkish" id="logoutBtn" type="button">خروج</button>`;
-      }
-      document.querySelectorAll("[data-nav]").forEach(a => {
-        const href = a.getAttribute("href") || "";
-        a.classList.toggle("active", location.hash === href || (href === "#/" && (location.hash === "" || location.hash === "#/")));
-      });
-      updateCartBadge();
-    }
+<div class="heroButtons">
 
-    function parseRoute() {
-      const raw = (location.hash || "#/").replace(/^#/, "");
-      const noQuery = raw.split("?")[0];
-      const parts = noQuery.split("/").filter(Boolean);
-      return { parts, path: parts.join("/") };
-    }
+<button class="mainBtn"
+onclick="document.getElementById('services').scrollIntoView()">
+    🔎 پیدا کردن خدمت
+</button>
 
-    function homeView() {
-      const list = services().filter(s => s.status === "active").slice(0, 8);
-      return `
-        <section class="hero">
-          <div class="hero-card">
-            <h1>خدمت مورد نیازت را پیدا کن</h1>
-            <p>وارش، بازار خدمات آنلاین</p>
-            <form class="search-box" id="heroSearch">
-              <input name="q" placeholder="جستجوی خدمت، مثل طراحی لوگو..." />
-              <button class="btn btn-primary" type="submit">جستجو</button>
-            </form>
-            <div class="cats">
-              ${CATS.map(c => `<button class="chip" data-cat="${c}" type="button">${c}</button>`).join("")}
-            </div>
-          </div>
-        </section>
-        <section class="section">
-          <div class="section-head"><h2>خدمات پیشنهادی</h2><a class="muted" href="#/services">مشاهده همه</a></div>
-          <div class="grid">${list.map(serviceCard).join("")}</div>
-        </section>`;
-    }
+<button class="secondaryBtn"
+onclick="document.getElementById('categories').scrollIntoView()">
+    مشاهده دسته‌بندی‌ها
+</button>
 
-    function servicesView(query) {
-      const q = (query.q || "").trim();
-      const cat = query.cat || "";
-      const min = Number(query.min || 0);
-      const max = Number(query.max || 0);
-      const minRate = Number(query.rate || 0);
-      const sort = query.sort || "new";
-      let list = services().filter(s => s.status === "active");
-      if (q) list = list.filter(s => (s.title + s.desc + s.category).includes(q));
-      if (cat) list = list.filter(s => s.category === cat);
-      if (min) list = list.filter(s => s.price >= min);
-      if (max) list = list.filter(s => s.price <= max);
-      if (minRate) list = list.filter(s => (s.rating || 0) >= minRate);
-      if (sort === "new") list.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-      if (sort === "popular") list.sort((a, b) => (b.orderCount || 0) - (a.orderCount || 0));
-      if (sort === "cheap") list.sort((a, b) => a.price - b.price);
-      return `
-        <section class="section">
-          <div class="section-head"><h2>خدمات</h2></div>
-          <div class="filters">
-            <aside class="side">
-              <form id="filterForm">
-                <div class="field"><label>جستجو</label><input name="q" value="${esc(q)}" /></div>
-                <div class="field"><label>دسته‌بندی</label>
-                  <select name="cat"><option value="">همه</option>${CATS.map(c => `<option ${c === cat ? "selected" : ""}>${c}</option>`).join("")}</select>
-                </div>
-                <div class="field"><label>حداقل قیمت</label><input name="min" type="number" value="${min || ""}" /></div>
-                <div class="field"><label>حداکثر قیمت</label><input name="max" type="number" value="${max || ""}" /></div>
-                <div class="field"><label>حداقل امتیاز</label>
-                  <select name="rate">
-                    <option value="0">همه</option>
-                    <option value="3" ${minRate === 3 ? "selected" : ""}>۳ به بالا</option>
-                    <option value="4" ${minRate === 4 ? "selected" : ""}>۴ به بالا</option>
-                    <option value="4.5" ${String(minRate) === "4.5" ? "selected" : ""}>۴.۵ به بالا</option>
-                  </select>
-                </div>
-                <div class="field"><label>مرتب‌سازی</label>
-                  <select name="sort">
-                    <option value="new" ${sort === "new" ? "selected" : ""}>جدیدترین</option>
-                    <option value="popular" ${sort === "popular" ? "selected" : ""}>محبوب‌ترین</option>
-                    <option value="cheap" ${sort === "cheap" ? "selected" : ""}>ارزان‌ترین</option>
-                  </select>
-                </div>
-                <button class="btn btn-primary btn-block" type="submit">اعمال فیلتر</button>
-              </form>
-            </aside>
-            <div>
-              ${list.length ? `<div class="grid">${list.map(serviceCard).join("")}</div>` : `<div class="empty">خدمتی با این فیلتر پیدا نشد.</div>`}
-            </div>
-          </div>
-        </section>`;
-    }
+</div>
 
-    function serviceDetailView(id) {
-      const s = serviceOf(id);
-      if (!s) return `<div class="section"><div class="empty">خدمت پیدا نشد.</div></div>`;
-      const p = providerOf(s.providerId);
-      const u = currentUser();
-      const fav = u ? favOf(u.id).includes(s.id) : favOf(guestCartKey()).includes(s.id);
-      const reviews = db.get(KEYS.reviews, []).filter(r => r.serviceId === s.id);
-      const img = s.image
-        ? `<div class="cover-lg"><img src="${s.image}" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:16px"></div>`
-        : `<div class="cover-lg" ${coverStyle(s.category)}>${coverLetter(s.category)}</div>`;
-      return `
-        <section class="section">
-          <div class="detail">
-            <div>
-              ${img}
-              <div class="card" style="margin-top:16px;padding:16px">
-                <h1 style="font-size:26px">${esc(s.title)}</h1>
-                <p class="muted">${s.category} · تحویل ${s.deliveryDays.toLocaleString("fa-IR")} روز</p>
-                <p style="margin:12px 0">${esc(s.desc)}</p>
-                <div class="row">
-                  <span class="price">${money(s.price)}</span>
-                  <span class="stars">⭐ ${(s.rating || 0).toLocaleString("fa-IR")} · ${(s.orderCount || 0).toLocaleString("fa-IR")} سفارش خدمت</span>
-                </div>
-              </div>
-              <div class="card" style="margin-top:16px;padding:16px">
-                <h3>نظرات مشتریان واقعی</h3>
-                ${reviews.length ? reviews.map(r => {
-                  const ru = users().find(x => x.id === r.userId);
-                  return `<div style="padding:10px 0;border-bottom:1px solid var(--line)"><b>${esc(ru ? ru.name : "مشتری")}</b> · ⭐ ${r.rating}<p>${esc(r.text)}</p></div>`;
-                }).join("") : `<p class="muted">هنوز نظر ثبت‌شده‌ای برای این خدمت نیست.</p>`}
-              </div>
-            </div>
-            <aside>
-              <div class="card" style="padding:16px">
-                <h3>اطلاعات ارائه‌دهنده</h3>
-                <p style="margin:8px 0"><a href="#/provider/${p.id}"><b>${esc(p.name)}</b></a></p>
-                <p>${esc(p.bio || "")}</p>
-                ${trustBlock(p)}
-                <button class="btn btn-primary btn-block" data-add="${s.id}" type="button">افزودن به سبد</button>
-                <button class="btn btn-ghost btn-block" id="favBtn" data-fav="${s.id}" type="button" style="margin-top:8px">${fav ? "حذف از علاقه‌مندی" : "افزودن به علاقه‌مندی"}</button>
-                <button class="btn btn-danger btn-block" id="reportBtn" data-report="${s.id}" type="button" style="margin-top:8px">گزارش</button>
-                <div id="reportBox" class="hidden" style="margin-top:10px">
-                  <form id="reportForm" data-sid="${s.id}">
-                    <div class="field"><label>علت گزارش</label><textarea name="text" required></textarea></div>
-                    <button class="btn btn-danger btn-block" type="submit">ارسال گزارش</button>
-                  </form>
-                </div>
-              </div>
-            </aside>
-          </div>
-        </section>`;
-    }
 
-    function providerView(id) {
-      const p = providerOf(id);
-      if (!p || p.role !== "provider") return `<div class="section"><div class="empty">ارائه‌دهنده پیدا نشد.</div></div>`;
-      const list = services().filter(s => s.providerId === p.id && s.status === "active");
-      const reviews = db.get(KEYS.reviews, []).filter(r => r.providerId === p.id);
-      return `
-        <section class="section">
-          <div class="card" style="padding:18px;margin-bottom:16px">
-            <h1>${esc(p.name)}</h1>
-            <p>${esc(p.bio || "")}</p>
-            ${trustBlock(p)}
-          </div>
-          <h2 style="margin-bottom:12px">خدمات ارائه‌دهنده</h2>
-          <div class="grid">${list.map(serviceCard).join("") || ""}</div>
-          <div class="card" style="padding:16px;margin-top:16px">
-            <h3>نظرات مشتریان واقعی</h3>
-            ${reviews.length ? reviews.map(r => `<p>⭐ ${r.rating} — ${esc(r.text)}</p>`).join("") : `<p class="muted">نظری ثبت نشده است.</p>`}
-          </div>
-        </section>`;
-    }
+<div class="searchBox">
 
-    function cartTotals(items) {
-      const rows = items.map(i => {
-        const s = serviceOf(i.serviceId);
-        return s ? { ...i, service: s, line: s.price * i.qty } : null;
-      }).filter(Boolean);
-      const sub = rows.reduce((a, b) => a + b.line, 0);
-      const fee = Math.round(sub * FEE_RATE);
-      return { rows, sub, fee, total: sub + fee };
-    }
+<input
+id="searchInput"
+type="text"
+placeholder="مثلاً طراحی لوگو، تدوین، برنامه‌نویسی..."
+onkeyup="searchServices()">
 
-    function cartView() {
-      const items = cartOf(activeCartId());
-      const t = cartTotals(items);
-      if (!t.rows.length) return `<section class="section"><div class="empty">سبد خرید خالی است. <a href="#/services">مشاهده خدمات</a></div></section>`;
-      return `
-        <section class="section">
-          <h2 style="margin-bottom:14px">سبد خرید</h2>
-          <div class="card" style="padding:8px">
-            <div class="table-wrap">
-              <table class="table">
-                <thead><tr><th>خدمت</th><th>قیمت</th><th>تعداد</th><th>جمع</th><th></th></tr></thead>
-                <tbody>
-                  ${t.rows.map(r => `
-                    <tr>
-                      <td>${esc(r.service.title)}</td>
-                      <td>${money(r.service.price)}</td>
-                      <td>
-                        <div class="qty">
-                          <button data-qty="${r.serviceId}" data-d="-1" type="button">−</button>
-                          <b>${r.qty.toLocaleString("fa-IR")}</b>
-                          <button data-qty="${r.serviceId}" data-d="1" type="button">+</button>
-                        </div>
-                      </td>
-                      <td>${money(r.line)}</td>
-                      <td><button class="btn btn-danger btn-sm" data-remove="${r.serviceId}" type="button">حذف</button></td>
-                    </tr>`).join("")}
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <div class="card" style="padding:16px;margin-top:16px;max-width:420px;margin-right:auto">
-            <div class="row"><span>جمع خدمات</span><b>${money(t.sub)}</b></div>
-            <div class="row"><span>کارمزد نمونه پلتفرم (۱۰٪)</span><b>${money(t.fee)}</b></div>
-            <div class="row" style="margin-top:8px"><span>مبلغ نهایی</span><b class="price">${money(t.total)}</b></div>
-            <a class="btn btn-primary btn-block" href="#/checkout" style="margin-top:12px">ادامه سفارش</a>
-          </div>
-        </section>`;
-    }
+<button onclick="searchServices()">
+جست‌وجو
+</button>
 
-    function checkoutView() {
-      const u = currentUser();
-      if (!u) return `<section class="section"><div class="empty">برای ثبت سفارش وارد حساب شوید. <a href="#/login">ورود</a></div></section>`;
-      if (u.role === "admin") return `<section class="section"><div class="empty">مدیر نمی‌تواند سفارش ثبت کند.</div></section>`;
-      const t = cartTotals(cartOf(u.id));
-      if (!t.rows.length) return `<section class="section"><div class="empty">سبد خالی است.</div></section>`;
-      return `
-        <section class="section">
-          <div class="card" style="padding:18px;max-width:640px">
-            <h2>ثبت سفارش</h2>
-            <form id="checkoutForm">
-              <div class="field"><label>نام مشتری</label><input name="name" value="${esc(u.name)}" required /></div>
-              <div class="field"><label>ایمیل</label><input name="email" value="${esc(u.email)}" required /></div>
-              <div class="field"><label>توضیحات سفارش</label><textarea name="notes" placeholder="جزئیات مورد نیاز را بنویسید"></textarea></div>
-              <div class="field"><label>زمان موردنظر</label><input name="when" type="date" /></div>
-              <div class="field"><label>روش پرداخت (شبیه‌سازی)</label>
-                <select name="pay"><option>کیف پول آزمایشی</option><option>کارت به کارت شبیه‌سازی</option></select>
-              </div>
-              <p>مبلغ نهایی: <b class="price">${money(t.total)}</b></p>
-              <button class="btn btn-success btn-block" type="submit">ثبت سفارش</button>
-            </form>
-          </div>
-        </section>`;
-    }
+</div>
 
-    function placeOrders(form) {
-      const u = currentUser();
-      const items = cartOf(u.id);
-      const t = cartTotals(items);
-      if (!t.rows.length) return;
-      const created = [];
-      const list = orders();
-      t.rows.forEach(r => {
-        if (u.role === "provider" && r.service.providerId === u.id) return;
-        const code = "#V" + String(10000 + Math.floor(Math.random() * 89999));
-        const fee = Math.round(r.line * FEE_RATE);
-        list.push({
-          id: uid("o_"),
-          code,
-          customerId: u.id,
-          customerName: form.name,
-          providerId: r.service.providerId,
-          serviceId: r.service.id,
-          title: r.service.title,
-          qty: r.qty,
-          price: r.line,
-          fee,
-          providerEarn: r.line,
-          total: r.line + fee,
-          status: "paid",
-          notes: form.notes,
-          when: form.when,
-          pay: form.pay,
-          createdAt: today(),
-          onTime: true
-        });
-        created.push(code);
-        const ss = services();
-        const s = ss.find(x => x.id === r.service.id);
-        if (s) { s.orderCount = (s.orderCount || 0) + 1; saveServices(ss); }
-      });
-      saveOrders(list);
-      saveCart(u.id, []);
-      location.hash = "#/order-success/" + encodeURIComponent(created[0] || "#V00000");
-      toast("✓ سفارش با موفقیت ثبت شد");
-    }
+</div>
 
-    function successView(code) {
-      return `<section class="section"><div class="card" style="padding:28px;text-align:center">
-        <h1>سفارش ثبت شد</h1>
-        <p class="muted">پرداخت به‌صورت آزمایشی شبیه‌سازی شد.</p>
-        <p style="font-size:28px;margin:16px 0;color:var(--primary);font-weight:800">${esc(decodeURIComponent(code || ""))}</p>
-        <a class="btn btn-primary" href="#/orders">مشاهده سفارش‌های من</a>
-      </div></section>`;
-    }
 
-    function ordersView() {
-      const u = currentUser();
-      if (!u) return `<section class="section"><div class="empty">وارد شوید.</div></section>`;
-      const list = orders().filter(o => o.customerId === u.id).sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt));
-      if (!list.length) return `<section class="section"><div class="empty">سفارشی ندارید.</div></section>`;
-      return `
-        <section class="section">
-          <h2 style="margin-bottom:12px">سفارش‌های من</h2>
-          <div class="card table-wrap">
-            <table class="table">
-              <thead><tr><th>کد سفارش</th><th>نام خدمت</th><th>مبلغ</th><th>وضعیت</th><th>تاریخ</th><th></th></tr></thead>
-              <tbody>
-                ${list.map(o => `<tr>
-                  <td>${o.code}</td><td>${esc(o.title)}</td><td>${money(o.total)}</td>
-                  <td><span class="status ${STATUS_CLASS[o.status]}">${STATUS[o.status]}</span></td>
-                  <td>${faDate(o.createdAt)}</td>
-                  <td><a class="btn btn-ghost btn-sm" href="#/order/${o.id}">جزئیات</a></td>
-                </tr>`).join("")}
-              </tbody>
-            </table>
-          </div>
-        </section>`;
-    }
+<!-- CATEGORIES -->
 
-    function orderDetailView(id) {
-      const u = currentUser();
-      const o = orders().find(x => x.id === id);
-      if (!o) return `<div class="section"><div class="empty">سفارش پیدا نشد.</div></div>`;
-      if (!u || (u.role !== "admin" && u.id !== o.customerId && u.id !== o.providerId))
-        return `<div class="section"><div class="empty">دسترسی ندارید.</div></div>`;
-      const canReview = u.id === o.customerId && o.status === "done" &&
-        !db.get(KEYS.reviews, []).some(r => r.orderId === o.id);
-      return `
-        <section class="section">
-          <div class="card" style="padding:18px">
-            <h2>${o.code}</h2>
-            <p>${esc(o.title)}</p>
-            <p>وضعیت: <span class="status ${STATUS_CLASS[o.status]}">${STATUS[o.status]}</span></p>
-            <p>مبلغ خدمت: ${money(o.price)} · کارمزد وارش: ${money(o.fee)} · مبلغ پرداختی: ${money(o.total)}</p>
-            <p class="muted">توضیحات: ${esc(o.notes || "—")}</p>
-            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
-              ${u.id === o.customerId && o.status === "delivered" ? `<button class="btn btn-success" data-ostatus="${o.id}" data-to="done">تأیید تکمیل</button><button class="btn btn-ghost" data-ostatus="${o.id}" data-to="revise">درخواست اصلاح</button>` : ""}
-              ${u.id === o.customerId && ["pending","paid"].includes(o.status) ? `<button class="btn btn-danger" data-ostatus="${o.id}" data-to="cancel">لغو سفارش</button>` : ""}
-              ${u.id === o.customerId && ["progress","delivered"].includes(o.status) ? `<button class="btn btn-ghost" data-ostatus="${o.id}" data-to="dispute">ثبت اختلاف</button>` : ""}
-            </div>
-            ${canReview ? `<form id="reviewForm" data-oid="${o.id}" style="margin-top:16px">
-              <h3>ثبت نظر واقعی</h3>
-              <div class="field"><label>امتیاز</label><select name="rating"><option>5</option><option>4</option><option>3</option><option>2</option><option>1</option></select></div>
-              <div class="field"><label>نظر</label><textarea name="text" required></textarea></div>
-              <button class="btn btn-primary" type="submit">ارسال نظر</button>
-            </form>` : ""}
-          </div>
-        </section>`;
-    }
+<section id="categories">
 
-    function applyOrderStatus(id, to) {
-      const u = currentUser();
-      const list = orders();
-      const o = list.find(x => x.id === id);
-      if (!o) return;
-      const allowed = {
-        customer: { delivered: ["done", "revise"], pending: ["cancel"], paid: ["cancel"], progress: ["dispute"], delivered2: ["dispute"] },
-        provider: { paid: ["progress"], progress: ["delivered"], revise: ["progress"], dispute: ["progress"] },
-        admin: Object.keys(STATUS)
-      };
-      if (u.role === "admin") {
-        o.status = to;
-      } else if (u.id === o.customerId) {
-        const ok = ["done", "revise", "cancel", "dispute"].includes(to);
-        if (!ok) { toast("این تغییر برای مشتری مجاز نیست", "err"); return; }
-        o.status = to;
-      } else if (u.id === o.providerId) {
-        if (!["progress", "delivered"].includes(to)) { toast("این تغییر برای ارائه‌دهنده مجاز نیست", "err"); return; }
-        o.status = to;
-      } else return;
-      if (to === "done") completeOrderStats(o);
-      if (to === "cancel") bumpCancel(o.providerId);
-      saveOrders(list);
-      toast("✓ وضعیت سفارش به‌روز شد");
-      render();
-    }
+<div class="sectionTitle">
 
-    function completeOrderStats(o) {
-      if (o.countedDone) return;
-      o.countedDone = true;
-      const list = users();
-      const p = list.find(u => u.id === o.providerId);
-      if (!p) return;
-      p.completedOrders = (p.completedOrders || 0) + 1;
-      const done = orders().filter(x => x.providerId === p.id && (x.status === "done" || x.countedDone));
-      const onTime = done.filter(x => x.onTime !== false).length;
-      p.onTimePercent = done.length ? Math.round((onTime / done.length) * 100) : p.onTimePercent;
-      p.level = levelOf(p.completedOrders);
-      saveUsers(list);
-    }
+<h2>دسته‌بندی خدمات</h2>
 
-    function bumpCancel(providerId) {
-      const list = users();
-      const p = list.find(u => u.id === providerId);
-      if (!p) return;
-      const all = orders().filter(o => o.providerId === providerId);
-      const canceled = all.filter(o => o.status === "cancel").length + 1;
-      p.cancelPercent = all.length ? Math.round((canceled / Math.max(all.length, 1)) * 100) : p.cancelPercent;
-      saveUsers(list);
-    }
+<p>
+خدمت موردنظرت را از بین دسته‌بندی‌ها پیدا کن
+</p>
 
-    function addReview(orderId, rating, text) {
-      const u = currentUser();
-      const o = orders().find(x => x.id === orderId);
-      if (!u || !o || u.id !== o.customerId || o.status !== "done") {
-        toast("فقط بعد از تکمیل سفارش می‌توانید نظر واقعی ثبت کنید", "err"); return;
-      }
-      if (u.id === o.providerId) { toast("امتیازدهی به خود مجاز نیست", "err"); return; }
-      const reviews = db.get(KEYS.reviews, []);
-      if (reviews.some(r => r.orderId === orderId)) { toast("برای این سفارش قبلاً نظر ثبت شده", "err"); return; }
-      reviews.push({ id: uid("r_"), orderId, serviceId: o.serviceId, providerId: o.providerId, userId: u.id, rating: Number(rating), text, createdAt: today() });
-      db.set(KEYS.reviews, reviews);
-      recalcProviderRating(o.providerId);
-      toast("✓ نظر شما ثبت شد");
-      render();
-    }
+</div>
 
-    function recalcProviderRating(providerId) {
-      const reviews = db.get(KEYS.reviews, []).filter(r => r.providerId === providerId);
-      const list = users();
-      const p = list.find(u => u.id === providerId);
-      if (!p) return;
-      p.reviewCount = reviews.length;
-      p.rating = reviews.length ? Math.round((reviews.reduce((a, b) => a + Number(b.rating), 0) / reviews.length) * 10) / 10 : 0;
-      saveUsers(list);
-      const ss = services();
-      ss.filter(s => s.providerId === providerId).forEach(s => {
-        const rs = reviews.filter(r => r.serviceId === s.id);
-        if (rs.length) s.rating = Math.round((rs.reduce((a, b) => a + Number(b.rating), 0) / rs.length) * 10) / 10;
-      });
-      saveServices(ss);
-    }
 
-    function favoritesView() {
-      const id = currentUser() ? currentUser().id : guestCartKey();
-      const ids = favOf(id);
-      const list = services().filter(s => ids.includes(s.id));
-      return `<section class="section"><h2 style="margin-bottom:12px">علاقه‌مندی‌ها</h2>${list.length ? `<div class="grid">${list.map(serviceCard).join("")}</div>` : `<div class="empty">هنوز خدمتی ذخیره نشده است.</div>`}</section>`;
-    }
+<div class="categories">
 
-    function toggleFav(serviceId) {
-      const id = currentUser() ? currentUser().id : guestCartKey();
-      const ids = favOf(id);
-      const i = ids.indexOf(serviceId);
-      if (i >= 0) { ids.splice(i, 1); toast("از علاقه‌مندی حذف شد"); }
-      else { ids.push(serviceId); toast("✓ به علاقه‌مندی اضافه شد"); }
-      saveFav(id, ids);
-      render();
-    }
+<div class="category" onclick="categorySearch('طراحی')">
+<div class="categoryIcon">🎨</div>
+<h3>طراحی</h3>
+<p>لوگو، بنر و گرافیک</p>
+</div>
 
-    function feedbackView() {
-      return `
-        <section class="section">
-          <div class="card" style="padding:18px;max-width:640px">
-            <h2>💬 بازخورد و پیشنهادات</h2>
-            <form id="fbForm">
-              <div class="field"><label>نوع</label>
-                <select name="type">
-                  <option>گزارش مشکل</option>
-                  <option>پیشنهاد</option>
-                  <option>انتقاد</option>
-                  <option>رضایت و تعریف</option>
-                  <option>سایر</option>
-                </select>
-              </div>
-              <div class="field"><label>متن بازخورد</label><textarea name="text" required></textarea></div>
-              <button class="btn btn-primary" type="submit">ارسال بازخورد</button>
-            </form>
-          </div>
-        </section>`;
-    }
+<div class="category" onclick="categorySearch('برنامه')">
+<div class="categoryIcon">💻</div>
+<h3>برنامه‌نویسی</h3>
+<p>سایت و اپلیکیشن</p>
+</div>
 
-    function loginView() {
-      return `
-        <section class="auth-wrap">
-          <div class="card" style="padding:22px">
-            <h2>ورود به حساب</h2>
-            <form id="loginForm">
-              <div class="field"><label>ایمیل</label><input name="email" type="email" required placeholder="admin@varesh.ir" /></div>
-              <div class="field"><label>رمز عبور</label><input name="password" type="password" required /></div>
-              <button class="btn btn-primary btn-block" type="submit">ورود</button>
-            </form>
-            <p class="muted" style="margin-top:10px">حساب ندارید؟ <a href="#/register">ثبت‌نام</a></p>
-            <p class="muted">نمونه مدیر: admin@varesh.ir / 123456</p>
-          </div>
-        </section>`;
-    }
+<div class="category" onclick="categorySearch('تولید')">
+<div class="categoryIcon">🎬</div>
+<h3>تولید محتوا</h3>
+<p>ویدیو و محتوای دیجیتال</p>
+</div>
 
-    function registerView() {
-      return `
-        <section class="auth-wrap">
-          <div class="card" style="padding:22px">
-            <h2>ثبت‌نام</h2>
-            <form id="regForm">
-              <div class="field"><label>نام</label><input name="name" required /></div>
-              <div class="field"><label>ایمیل</label><input name="email" type="email" required /></div>
-              <div class="field"><label>رمز عبور</label><input name="password" type="password" required minlength="4" /></div>
-              <div class="field"><label>نقش</label>
-                <select name="role">
-                  <option value="customer">مشتری</option>
-                  <option value="provider">ارائه‌دهنده خدمات</option>
-                </select>
-              </div>
-              <button class="btn btn-primary btn-block" type="submit">ایجاد حساب</button>
-            </form>
-          </div>
-        </section>`;
-    }
+<div class="category" onclick="categorySearch('نویسندگی')">
+<div class="categoryIcon">✍️</div>
+<h3>نویسندگی</h3>
+<p>مقاله و متن</p>
+</div>
 
-    function accountView() {
-      const u = currentUser();
-      if (!u) return loginView();
-      return `<section class="section"><div class="card" style="padding:18px;max-width:560px">
-        <h2>حساب کاربری</h2>
-        <p>${esc(u.name)} · ${esc(u.email)}</p>
-        <p class="muted">نقش: ${u.role === "customer" ? "مشتری" : u.role === "provider" ? "ارائه‌دهنده" : "مدیر"}</p>
-        <a class="btn btn-ghost" href="#/orders">سفارش‌های من</a>
-      </div></section>`;
-    }
+<div class="category" onclick="categorySearch('ترجمه')">
+<div class="categoryIcon">🌐</div>
+<h3>ترجمه</h3>
+<p>ترجمه متون مختلف</p>
+</div>
 
-    function providerPanelView(sub) {
-      const u = requireRole(["provider"]);
-      if (!u) return `<section class="section"><div class="empty">این بخش مخصوص ارائه‌دهنده است. <a href="#/login">ورود</a></div></section>`;
-      const mine = services().filter(s => s.providerId === u.id);
-      const myOrders = orders().filter(o => o.providerId === u.id);
-      const earn = myOrders.filter(o => ["paid", "progress", "delivered", "done", "revise"].includes(o.status)).reduce((a, b) => a + (b.providerEarn || 0), 0);
-      const tabs = `<div class="tabs">
-        <a class="btn btn-ghost btn-sm" href="#/provider-panel">داشبورد</a>
-        <a class="btn btn-ghost btn-sm" href="#/provider-panel/services">خدمات من</a>
-        <a class="btn btn-ghost btn-sm" href="#/provider-panel/add">افزودن خدمت</a>
-        <a class="btn btn-ghost btn-sm" href="#/provider-panel/orders">سفارش‌های من</a>
-        <a class="btn btn-ghost btn-sm" href="#/provider-panel/income">درآمد</a>
-        <a class="btn btn-ghost btn-sm" href="#/provider-panel/profile">پروفایل</a>
-      </div>`;
-      if (sub === "services") {
-        return `<section class="section">${tabs}<div class="card table-wrap"><table class="table">
-          <thead><tr><th>نام</th><th>قیمت</th><th>وضعیت</th><th></th></tr></thead>
-          <tbody>${mine.map(s => `<tr><td>${esc(s.title)}</td><td>${money(s.price)}</td><td>${s.status}</td>
-            <td><button class="btn btn-danger btn-sm" data-dels="${s.id}">حذف</button></td></tr>`).join("") || `<tr><td colspan="4">خدمتی ندارید</td></tr>`}</tbody></table></div></section>`;
-      }
-      if (sub === "add") {
-        return `<section class="section">${tabs}<div class="card" style="padding:18px;max-width:640px">
-          <h2>افزودن خدمت</h2>
-          <form id="addServiceForm">
-            <div class="field"><label>نام خدمت</label><input name="title" required /></div>
-            <div class="field"><label>توضیحات</label><textarea name="desc" required></textarea></div>
-            <div class="field"><label>قیمت (تومان)</label><input name="price" type="number" min="1000" required /></div>
-            <div class="field"><label>زمان تحویل (روز)</label><input name="deliveryDays" type="number" min="1" required /></div>
-            <div class="field"><label>دسته‌بندی</label><select name="category">${CATS.map(c => `<option>${c}</option>`).join("")}</select></div>
-            <div class="field"><label>تصویر خدمت</label><input name="image" type="file" accept="image/*" /></div>
-            <img id="previewImg" class="hidden" style="width:100%;max-height:220px;object-fit:cover;border-radius:12px;margin-bottom:10px" />
-            <button class="btn btn-primary" type="submit">ثبت خدمت</button>
-          </form>
-        </div></section>`;
-      }
-      if (sub === "orders") {
-        return `<section class="section">${tabs}<div class="card table-wrap"><table class="table">
-          <thead><tr><th>کد</th><th>خدمت</th><th>مبلغ شما</th><th>وضعیت</th><th></th></tr></thead>
-          <tbody>${myOrders.map(o => `<tr><td>${o.code}</td><td>${esc(o.title)}</td><td>${money(o.providerEarn)}</td>
-            <td><span class="status ${STATUS_CLASS[o.status]}">${STATUS[o.status]}</span></td>
-            <td>
-              ${o.status === "paid" ? `<button class="btn btn-primary btn-sm" data-ostatus="${o.id}" data-to="progress">شروع کار</button>` : ""}
-              ${o.status === "progress" || o.status === "revise" ? `<button class="btn btn-success btn-sm" data-ostatus="${o.id}" data-to="delivered">تحویل</button>` : ""}
-            </td></tr>`).join("") || `<tr><td colspan="5">سفارشی نیست</td></tr>`}</tbody></table></div></section>`;
-      }
-      if (sub === "income") {
-        return `<section class="section">${tabs}
-          <div class="stat"><span>درآمد از سفارش‌های واقعی</span><b>${money(earn)}</b></div>
-          <p class="muted" style="margin-top:10px">وارش فقط کارمزد مشخص پلتفرم را از مشتری می‌گیرد. درآمد ارائه‌دهنده فقط از سفارش‌های واقعی خودش است و قابل ساخت دستی نیست.</p>
-        </section>`;
-      }
-      if (sub === "profile") {
-        return `<section class="section">${tabs}<div class="card" style="padding:18px;max-width:640px">
-          <h2>پروفایل</h2>
-          <form id="provProfile">
-            <div class="field"><label>نام</label><input name="name" value="${esc(u.name)}" required /></div>
-            <div class="field"><label>توضیحات</label><textarea name="bio">${esc(u.bio || "")}</textarea></div>
-            <button class="btn btn-primary" type="submit">ذخیره</button>
-          </form>
-          <div style="margin-top:16px">${trustBlock(u)}</div>
-          <p class="muted">امتیاز، سفارش و نظر را خودتان نمی‌توانید تغییر دهید.</p>
-        </div></section>`;
-      }
-      return `<section class="section">${tabs}
-        <div class="stats">
-          <div class="stat"><span>خدمات</span><b>${mine.length.toLocaleString("fa-IR")}</b></div>
-          <div class="stat"><span>سفارش‌ها</span><b>${myOrders.length.toLocaleString("fa-IR")}</b></div>
-          <div class="stat"><span>درآمد</span><b>${money(earn)}</b></div>
-          <div class="stat"><span>امتیاز</span><b>${(u.rating || 0).toLocaleString("fa-IR")}</b></div>
-        </div>
-        ${trustBlock(u)}
-      </section>`;
-    }
+<div class="category" onclick="categorySearch('آموزش')">
+<div class="categoryIcon">📚</div>
+<h3>آموزش</h3>
+<p>آموزش مهارت‌ها</p>
+</div>
 
-    function adminView(sub) {
-      const u = requireRole(["admin"]);
-      if (!u) return `<section class="section"><div class="empty">فقط مدیر. <a href="#/login">ورود</a></div></section>`;
-      const us = users();
-      const sv = services();
-      const od = orders();
-      const sum = od.reduce((a, b) => a + (b.price || 0), 0);
-      const fee = od.reduce((a, b) => a + (b.fee || 0), 0);
-      const tabs = `<div class="tabs">
-        <a class="btn btn-ghost btn-sm" href="#/admin">خلاصه</a>
-        <a class="btn btn-ghost btn-sm" href="#/admin/users">کاربران</a>
-        <a class="btn btn-ghost btn-sm" href="#/admin/services">خدمات</a>
-        <a class="btn btn-ghost btn-sm" href="#/admin/orders">سفارش‌ها</a>
-        <a class="btn btn-ghost btn-sm" href="#/admin/feedback">بازخوردها</a>
-        <a class="btn btn-ghost btn-sm" href="#/admin/reports">گزارش‌ها و شکایت‌ها</a>
-      </div>`;
-      if (sub === "users") {
-        return `<section class="section">${tabs}<div class="card table-wrap"><table class="table">
-          <thead><tr><th>نام</th><th>ایمیل</th><th>نقش</th><th></th></tr></thead>
-          <tbody>${us.map(x => `<tr><td>${esc(x.name)}</td><td>${esc(x.email)}</td><td>${x.role}</td><td>
-            ${x.role === "provider" ? `<button class="btn btn-success btn-sm" data-verify="${x.id}">${x.verified ? "لغو تأیید" : "تأیید هویت"}</button>` : ""}
-            ${x.role !== "admin" ? `<button class="btn btn-danger btn-sm" data-delu="${x.id}">حذف</button>` : ""}
-          </td></tr>`).join("")}</tbody></table></div></section>`;
-      }
-      if (sub === "services") {
-        return `<section class="section">${tabs}<div class="card table-wrap"><table class="table">
-          <thead><tr><th>خدمت</th><th>ارائه‌دهنده</th><th>وضعیت</th><th></th></tr></thead>
-          <tbody>${sv.map(s => `<tr><td>${esc(s.title)}</td><td>${esc((providerOf(s.providerId) || {}).name || "")}</td><td>${s.status}</td>
-            <td><button class="btn btn-ghost btn-sm" data-stoggle="${s.id}">تغییر وضعیت</button>
-            <button class="btn btn-danger btn-sm" data-dels="${s.id}">حذف</button></td></tr>`).join("")}</tbody></table></div></section>`;
-      }
-      if (sub === "orders") {
-        return `<section class="section">${tabs}<div class="card table-wrap"><table class="table">
-          <thead><tr><th>کد</th><th>خدمت</th><th>وضعیت</th><th>مبلغ</th></tr></thead>
-          <tbody>${od.map(o => `<tr><td><a href="#/order/${o.id}">${o.code}</a></td><td>${esc(o.title)}</td>
-            <td><span class="status ${STATUS_CLASS[o.status]}">${STATUS[o.status]}</span></td><td>${money(o.total)}</td></tr>`).join("") || `<tr><td colspan="4">سفارشی نیست</td></tr>`}</tbody></table></div>
-          <p class="muted" style="margin-top:10px">مدیر نمی‌تواند برای خودش سفارش یا درآمد جعلی بسازد.</p>
-        </section>`;
-      }
-      if (sub === "feedback") {
-        const fbs = db.get(KEYS.feedback, []);
-        return `<section class="section">${tabs}<div class="card" style="padding:16px">${fbs.map(f => `<p><b>${esc(f.type)}</b> — ${esc(f.text)} <span class="muted">${faDate(f.createdAt)}</span></p>`).join("") || "بازخوردی نیست"}</div></section>`;
-      }
-      if (sub === "reports") {
-        const reps = db.get(KEYS.reports, []);
-        return `<section class="section">${tabs}<div class="card" style="padding:16px">${reps.map(r => `<p>گزارش خدمت ${esc(r.serviceId)}: ${esc(r.text)} <span class="muted">${faDate(r.createdAt)}</span></p>`).join("") || "گزارشی نیست"}</div></section>`;
-      }
-      return `<section class="section">${tabs}
-        <div class="stats">
-          <div class="stat"><span>کاربران</span><b>${us.filter(x => x.role === "customer").length.toLocaleString("fa-IR")}</b></div>
-          <div class="stat"><span>ارائه‌دهندگان</span><b>${us.filter(x => x.role === "provider").length.toLocaleString("fa-IR")}</b></div>
-          <div class="stat"><span>خدمات</span><b>${sv.length.toLocaleString("fa-IR")}</b></div>
-          <div class="stat"><span>سفارش‌ها</span><b>${od.length.toLocaleString("fa-IR")}</b></div>
-          <div class="stat"><span>مبلغ سفارش‌ها</span><b>${money(sum)}</b></div>
-          <div class="stat"><span>کارمزد وارش</span><b>${money(fee)}</b></div>
-        </div>
-      </section>`;
-    }
+<div class="category" onclick="categorySearch('موسیقی')">
+<div class="categoryIcon">🎵</div>
+<h3>موسیقی</h3>
+<p>تدوین و خدمات صوتی</p>
+</div>
 
-    function qs(obj) {
-      const p = new URLSearchParams();
-      Object.entries(obj).forEach(([k, v]) => { if (v !== "" && v != null) p.set(k, v); });
-      const s = p.toString();
-      return s ? "?" + s : "";
-    }
+<div class="category" onclick="categorySearch('سایر')">
+<div class="categoryIcon">✨</div>
+<h3>سایر خدمات</h3>
+<p>خدمات متنوع دیگر</p>
+</div>
 
-    function render() {
-      seedIfNeeded();
-      closeMenu();
-      renderNav();
-      const { parts } = parseRoute();
-      const root = parts[0] || "";
-      const app = document.getElementById("app");
-      const search = new URLSearchParams((location.hash.split("?")[1] || ""));
-      const query = Object.fromEntries(search.entries());
-      let html = "";
-      if (!root) html = homeView();
-      else if (root === "services") html = servicesView(query);
-      else if (root === "service") html = serviceDetailView(parts[1]);
-      else if (root === "provider") html = providerView(parts[1]);
-      else if (root === "cart") html = cartView();
-      else if (root === "checkout") html = checkoutView();
-      else if (root === "order-success") html = successView(parts[1]);
-      else if (root === "orders") html = ordersView();
-      else if (root === "order") html = orderDetailView(parts[1]);
-      else if (root === "favorites") html = favoritesView();
-      else if (root === "feedback") html = feedbackView();
-      else if (root === "login") html = loginView();
-      else if (root === "register") html = registerView();
-      else if (root === "account") html = accountView();
-      else if (root === "provider-panel") html = providerPanelView(parts[1]);
-      else if (root === "admin") html = adminView(parts[1]);
-      else html = homeView();
-      app.innerHTML = html;
-      bind();
-    }
+</div>
 
-    function bind() {
-      document.getElementById("heroSearch")?.addEventListener("submit", e => {
-        e.preventDefault();
-        const q = e.target.q.value.trim();
-        location.hash = "#/services" + qs({ q });
-      });
-      document.querySelectorAll("[data-cat]").forEach(btn => btn.addEventListener("click", () => {
-        location.hash = "#/services" + qs({ cat: btn.dataset.cat });
-      }));
-      document.getElementById("filterForm")?.addEventListener("submit", e => {
-        e.preventDefault();
-        const fd = new FormData(e.target);
-        location.hash = "#/services" + qs(Object.fromEntries(fd.entries()));
-      });
-      document.querySelectorAll("[data-add]").forEach(btn => btn.addEventListener("click", () => addToCart(btn.dataset.add, 1)));
-      document.querySelectorAll("[data-remove]").forEach(btn => btn.addEventListener("click", () => {
-        const items = cartOf(activeCartId()).filter(i => i.serviceId !== btn.dataset.remove);
-        saveCart(activeCartId(), items);
-        toast("از سبد حذف شد");
-        render();
-      }));
-      document.querySelectorAll("[data-qty]").forEach(btn => btn.addEventListener("click", () => {
-        const items = cartOf(activeCartId());
-        const it = items.find(i => i.serviceId === btn.dataset.qty);
-        if (!it) return;
-        it.qty += Number(btn.dataset.d);
-        if (it.qty < 1) {
-          saveCart(activeCartId(), items.filter(i => i.serviceId !== it.serviceId));
-        } else saveCart(activeCartId(), items);
-        render();
-      }));
-      document.getElementById("checkoutForm")?.addEventListener("submit", e => {
-        e.preventDefault();
-        const fd = new FormData(e.target);
-        placeOrders(Object.fromEntries(fd.entries()));
-      });
-      document.getElementById("favBtn")?.addEventListener("click", () => toggleFav(document.getElementById("favBtn").dataset.fav));
-      document.getElementById("reportBtn")?.addEventListener("click", () => {
-        const box = document.getElementById("reportBox");
-        if (box) box.classList.toggle("hidden");
-      });
-      document.getElementById("reportForm")?.addEventListener("submit", e => {
-        e.preventDefault();
-        const text = String(new FormData(e.target).get("text") || "").trim();
-        if (!text) { toast("متن گزارش را بنویسید", "err"); return; }
-        const reps = db.get(KEYS.reports, []);
-        reps.push({ id: uid("rp_"), serviceId: e.target.dataset.sid, text, userId: (currentUser() || {}).id || "guest", createdAt: today() });
-        db.set(KEYS.reports, reps);
-        toast("✓ گزارش ثبت شد");
-        e.target.reset();
-        document.getElementById("reportBox")?.classList.add("hidden");
-      });
-      document.getElementById("fbForm")?.addEventListener("submit", e => {
-        e.preventDefault();
-        const fd = new FormData(e.target);
-        const list = db.get(KEYS.feedback, []);
-        list.push({ id: uid("f_"), type: fd.get("type"), text: fd.get("text"), userId: (currentUser() || {}).id || "guest", createdAt: today() });
-        db.set(KEYS.feedback, list);
-        toast("✓ بازخورد ارسال شد");
-        e.target.reset();
-      });
-      document.getElementById("loginForm")?.addEventListener("submit", e => {
-        e.preventDefault();
-        const fd = new FormData(e.target);
-        const email = String(fd.get("email")).trim().toLowerCase();
-        const pass = hash(String(fd.get("password")));
-        const u = users().find(x => x.email.toLowerCase() === email && x.pass === pass);
-        if (!u) { toast("ایمیل یا رمز نادرست است", "err"); return; }
-        db.set(KEYS.session, { userId: u.id });
-        const guest = cartOf(guestCartKey());
-        if (guest.length) {
-          const mine = cartOf(u.id);
-          guest.forEach(g => {
-            const f = mine.find(x => x.serviceId === g.serviceId);
-            if (f) f.qty += g.qty; else mine.push(g);
-          });
-          saveCart(u.id, mine);
-          saveCart(guestCartKey(), []);
+</section>
+
+
+<!-- SERVICES -->
+
+<section id="services">
+
+<div class="sectionTitle">
+
+<h2>خدمات پیشنهادی</h2>
+
+<p>
+چند نمونه از خدماتی که می‌توانند در وارش ارائه شوند
+</p>
+
+</div>
+
+
+<div class="services" id="serviceList">
+
+
+<div class="service" data-name="طراحی لوگو">
+
+<div class="serviceImage">
+🎨
+</div>
+
+<div class="serviceContent">
+
+<span class="serviceTag">
+طراحی
+</span>
+
+<h3>طراحی لوگو</h3>
+
+<p>
+طراحی لوگوی اختصاصی برای برند، کانال یا کسب‌وکار.
+</p>
+
+<div class="serviceBottom">
+
+<span class="price">
+شروع از ۲۰۰ هزار تومان
+</span>
+
+<button class="orderBtn"
+onclick="orderService('طراحی لوگو')">
+سفارش
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<div class="service" data-name="ساخت سایت">
+
+<div class="serviceImage">
+💻
+</div>
+
+<div class="serviceContent">
+
+<span class="serviceTag">
+برنامه‌نویسی
+</span>
+
+<h3>ساخت سایت</h3>
+
+<p>
+طراحی و ساخت وب‌سایت متناسب با نیاز شما.
+</p>
+
+<div class="serviceBottom">
+
+<span class="price">
+شروع از ۵۰۰ هزار تومان
+</span>
+
+<button class="orderBtn"
+onclick="orderService('ساخت سایت')">
+سفارش
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<div class="service" data-name="تدوین ویدیو">
+
+<div class="serviceImage">
+🎬
+</div>
+
+<div class="serviceContent">
+
+<span class="serviceTag">
+تولید محتوا
+</span>
+
+<h3>تدوین ویدیو</h3>
+
+<p>
+تدوین و آماده‌سازی ویدیو برای شبکه‌های اجتماعی.
+</p>
+
+<div class="serviceBottom">
+
+<span class="price">
+شروع از ۱۵۰ هزار تومان
+</span>
+
+<button class="orderBtn"
+onclick="orderService('تدوین ویدیو')">
+سفارش
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- ABOUT -->
+
+<section id="about">
+
+<div class="about">
+
+<h2>
+وارش چیست؟
+</h2>
+
+<p>
+وارش یک پلتفرم آنلاین برای پیدا کردن و سفارش خدمات است.
+هدف وارش این است که ارتباط بین مشتری و ارائه‌دهنده خدمات
+را ساده‌تر و منظم‌تر کند.
+</p>
+
+<div class="stats">
+
+<div class="stat">
+<strong>∞</strong>
+<span>امکان اضافه شدن خدمات مختلف</span>
+</div>
+
+<div class="stat">
+<strong>⚡</strong>
+<span>جست‌وجوی سریع خدمات</span>
+</div>
+
+<div class="stat">
+<strong>📱</strong>
+<span>طراحی شده برای موبایل</span>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+</main>
+
+
+<footer>
+
+<div class="footerLogo">
+وارش
+</div>
+
+<p>
+© 2026 وارش | بازار خدمات آنلاین
+</p>
+
+</footer>
+
+
+<script>
+
+/* Search */
+
+function searchServices(){
+
+    const input =
+        document.getElementById("searchInput")
+        .value
+        .trim()
+        .toLowerCase();
+
+    const services =
+        document.querySelectorAll(".service");
+
+    services.forEach(service => {
+
+        const name =
+            service.dataset.name.toLowerCase();
+
+        if(
+            input === "" ||
+            name.includes(input)
+        ){
+
+            service.style.display = "block";
+
+        }else{
+
+            service.style.display = "none";
+
         }
-        const guestFav = favOf(guestCartKey());
-        if (guestFav.length) {
-          const mineFav = Array.from(new Set(favOf(u.id).concat(guestFav)));
-          saveFav(u.id, mineFav);
-          saveFav(guestCartKey(), []);
-        }
-        toast("✓ وارد شدید");
-        location.hash = u.role === "admin" ? "#/admin" : u.role === "provider" ? "#/provider-panel" : "#/";
-        render();
-      });
-      document.getElementById("regForm")?.addEventListener("submit", e => {
-        e.preventDefault();
-        const fd = new FormData(e.target);
-        const email = String(fd.get("email")).trim().toLowerCase();
-        if (users().some(x => x.email.toLowerCase() === email)) { toast("این ایمیل قبلاً ثبت شده", "err"); return; }
-        const role = fd.get("role");
-        if (role === "admin") return;
-        const u = {
-          id: uid("u_"), name: fd.get("name"), email, pass: hash(String(fd.get("password"))),
-          role, bio: "", avatar: "", verified: false, joinedAt: today(),
-          rating: 0, completedOrders: 0, onTimePercent: 100, responseHours: 24,
-          cancelPercent: 0, reviewCount: 0, level: "تازه‌کار"
-        };
-        const list = users(); list.push(u); saveUsers(list);
-        db.set(KEYS.session, { userId: u.id });
-        toast("✓ حساب ساخته شد");
-        location.hash = role === "provider" ? "#/provider-panel" : "#/";
-        render();
-      });
-      document.getElementById("logoutBtn")?.addEventListener("click", () => {
-        localStorage.removeItem(KEYS.session);
-        toast("خارج شدید");
-        location.hash = "#/";
-        render();
-      });
-      document.getElementById("addServiceForm")?.addEventListener("submit", e => {
-        e.preventDefault();
-        const u = currentUser();
-        if (!u || u.role !== "provider") return;
-        const fd = new FormData(e.target);
-        const file = e.target.image.files[0];
-        const finish = (image) => {
-          const list = services();
-          list.unshift({
-            id: uid("s_"), providerId: u.id, title: fd.get("title"), desc: fd.get("desc"),
-            category: fd.get("category"), price: Number(fd.get("price")), deliveryDays: Number(fd.get("deliveryDays")),
-            image: image || "", rating: 0, orderCount: 0, createdAt: today(), status: "active"
-          });
-          saveServices(list);
-          toast("✓ خدمت ثبت شد");
-          location.hash = "#/provider-panel/services";
-          render();
-        };
-        if (file) {
-          const reader = new FileReader();
-          reader.onload = () => finish(reader.result);
-          reader.readAsDataURL(file);
-        } else finish("");
-      });
-      document.querySelector('input[name="image"]')?.addEventListener("change", e => {
-        const file = e.target.files[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = () => {
-          const img = document.getElementById("previewImg");
-          if (img) { img.src = reader.result; img.classList.remove("hidden"); }
-        };
-        reader.readAsDataURL(file);
-      });
-      document.getElementById("provProfile")?.addEventListener("submit", e => {
-        e.preventDefault();
-        const u = currentUser();
-        const fd = new FormData(e.target);
-        const list = users();
-        const me = list.find(x => x.id === u.id);
-        me.name = fd.get("name");
-        me.bio = fd.get("bio");
-        saveUsers(list);
-        toast("✓ پروفایل ذخیره شد");
-      });
-      document.getElementById("reviewForm")?.addEventListener("submit", e => {
-        e.preventDefault();
-        const fd = new FormData(e.target);
-        addReview(e.target.dataset.oid, fd.get("rating"), fd.get("text"));
-      });
-      document.querySelectorAll("[data-ostatus]").forEach(btn => btn.addEventListener("click", () => applyOrderStatus(btn.dataset.ostatus, btn.dataset.to)));
-      document.querySelectorAll("[data-dels]").forEach(btn => btn.addEventListener("click", () => {
-        const u = currentUser();
-        const s = serviceOf(btn.dataset.dels);
-        if (!s) return;
-        if (!(u && (u.role === "admin" || u.id === s.providerId))) return;
-        saveServices(services().filter(x => x.id !== s.id));
-        toast("خدمت حذف شد");
-        render();
-      }));
-      document.querySelectorAll("[data-delu]").forEach(btn => btn.addEventListener("click", () => {
-        if (!requireRole(["admin"])) return;
-        saveUsers(users().filter(x => x.id !== btn.dataset.delu));
-        toast("کاربر حذف شد");
-        render();
-      }));
-      document.querySelectorAll("[data-verify]").forEach(btn => btn.addEventListener("click", () => {
-        if (!requireRole(["admin"])) return;
-        const list = users();
-        const p = list.find(x => x.id === btn.dataset.verify);
-        if (p) { p.verified = !p.verified; saveUsers(list); toast("وضعیت تأیید تغییر کرد"); render(); }
-      }));
-      document.querySelectorAll("[data-stoggle]").forEach(btn => btn.addEventListener("click", () => {
-        if (!requireRole(["admin"])) return;
-        const list = services();
-        const s = list.find(x => x.id === btn.dataset.stoggle);
-        if (s) { s.status = s.status === "active" ? "hidden" : "active"; saveServices(list); render(); }
-      }));
-    }
 
-    function closeMenu() {
-      const nav = document.getElementById("mainNav");
-      const backdrop = document.getElementById("navBackdrop");
-      const btn = document.getElementById("menuBtn");
-      nav.classList.remove("open");
-      backdrop.classList.remove("show");
-      document.body.classList.remove("menu-open");
-      btn.setAttribute("aria-expanded", "false");
-      btn.textContent = "منو";
-    }
-    function openMenu() {
-      const nav = document.getElementById("mainNav");
-      const backdrop = document.getElementById("navBackdrop");
-      const btn = document.getElementById("menuBtn");
-      nav.classList.add("open");
-      backdrop.classList.add("show");
-      document.body.classList.add("menu-open");
-      btn.setAttribute("aria-expanded", "true");
-      btn.textContent = "بستن";
-    }
-    document.getElementById("menuBtn").addEventListener("click", (e) => {
-      e.stopPropagation();
-      const nav = document.getElementById("mainNav");
-      if (nav.classList.contains("open")) closeMenu();
-      else openMenu();
     });
-    document.getElementById("navBackdrop").addEventListener("click", closeMenu);
-    document.getElementById("mainNav").addEventListener("click", (e) => {
-      const item = e.target.closest("a, button");
-      if (item) closeMenu();
-    });
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") closeMenu();
-    });
-    window.addEventListener("hashchange", render);
-    seedIfNeeded();
-    render();
-  })();
-  </script>
+
+}
+
+
+/* Category */
+
+function categorySearch(category){
+
+    document
+    .getElementById("searchInput")
+    .value = category;
+
+    document
+    .getElementById("services")
+    .scrollIntoView();
+
+    searchServices();
+
+}
+
+
+/* Order */
+
+function orderService(service){
+
+    alert(
+        "سفارش «" +
+        service +
+        "» در نسخه فعلی نمایشی است.\n\n" +
+        "سیستم ثبت سفارش واقعی را در مرحله بعد اضافه می‌کنیم."
+    );
+
+}
+
+
+/* Login */
+
+function login(){
+
+    alert(
+        "سیستم ورود کاربران در مرحله بعد فعال می‌شود."
+    );
+
+}
+
+
+/* Register */
+
+function register(){
+
+    alert(
+        "سیستم ثبت‌نام کاربران در مرحله بعد فعال می‌شود."
+    );
+
+}
+
+</script>
+
 </body>
 </html>
