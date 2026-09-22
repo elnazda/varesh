@@ -3,14 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>وارش | بازار خدمات آنلاین</title>
 
 <style>
 *{
+    box-sizing:border-box;
     margin:0;
     padding:0;
-    box-sizing:border-box;
     font-family:Tahoma,Arial,sans-serif;
 }
 
@@ -24,60 +23,57 @@ body{
     min-height:100vh;
 }
 
-/* Header */
-
 header{
     position:sticky;
     top:0;
     z-index:1000;
-    background:rgba(8,11,20,.88);
+    background:rgba(8,11,20,.92);
     backdrop-filter:blur(15px);
-    border-bottom:1px solid rgba(255,255,255,.08);
+    border-bottom:1px solid #1d2638;
 }
 
 .navbar{
     max-width:1200px;
     margin:auto;
-    padding:15px 20px;
+    padding:14px 18px;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    gap:20px;
+    gap:15px;
 }
 
 .logo{
     display:flex;
     align-items:center;
-    gap:10px;
-    font-size:25px;
+    gap:9px;
+    font-size:24px;
     font-weight:bold;
 }
 
 .logoIcon{
-    width:43px;
-    height:43px;
-    border-radius:14px;
+    width:42px;
+    height:42px;
     display:flex;
     align-items:center;
     justify-content:center;
+    border-radius:13px;
     background:linear-gradient(135deg,#7c3aed,#2563eb);
-    box-shadow:0 0 25px rgba(99,102,241,.4);
+    box-shadow:0 0 25px rgba(99,102,241,.35);
 }
 
 .navLinks{
     display:flex;
-    gap:25px;
+    gap:22px;
 }
 
 .navLinks a{
-    color:#cbd5e1;
+    color:#aeb8c9;
     text-decoration:none;
     font-size:14px;
-    transition:.3s;
 }
 
 .navLinks a:hover{
-    color:#fff;
+    color:white;
 }
 
 .navButtons{
@@ -86,51 +82,44 @@ header{
 }
 
 .btn{
-    border:none;
-    border-radius:12px;
-    padding:11px 17px;
+    border:0;
+    border-radius:11px;
+    padding:10px 15px;
     cursor:pointer;
     font-weight:bold;
-    transition:.3s;
 }
 
-.btnLogin{
-    background:#151b2d;
-    color:#fff;
-}
-
-.btnRegister{
-    background:linear-gradient(135deg,#7c3aed,#2563eb);
+.login{
+    background:#151b2b;
     color:white;
 }
 
-.btn:hover{
-    transform:translateY(-2px);
+.register{
+    color:white;
+    background:linear-gradient(135deg,#7c3aed,#2563eb);
 }
-
-/* Hero */
 
 .hero{
     max-width:1200px;
     margin:auto;
-    padding:90px 20px 70px;
     text-align:center;
+    padding:80px 18px 60px;
 }
 
 .badge{
     display:inline-block;
-    background:rgba(124,58,237,.12);
-    border:1px solid rgba(124,58,237,.35);
-    color:#c4b5fd;
-    padding:8px 15px;
+    padding:8px 14px;
     border-radius:30px;
-    font-size:13px;
-    margin-bottom:22px;
+    color:#c4b5fd;
+    background:#171329;
+    border:1px solid #44357c;
+    font-size:12px;
+    margin-bottom:20px;
 }
 
 .hero h1{
-    font-size:clamp(38px,7vw,72px);
-    line-height:1.2;
+    font-size:clamp(38px,7vw,70px);
+    line-height:1.25;
     margin-bottom:20px;
 }
 
@@ -141,140 +130,135 @@ header{
 }
 
 .hero p{
+    color:#8e9aae;
     max-width:650px;
     margin:auto;
-    color:#94a3b8;
     line-height:2;
-    font-size:16px;
+    font-size:15px;
 }
 
 .heroButtons{
-    margin-top:30px;
     display:flex;
     justify-content:center;
     gap:12px;
+    margin:28px 0;
     flex-wrap:wrap;
 }
 
-.mainBtn{
-    background:linear-gradient(135deg,#7c3aed,#2563eb);
+.mainBtn,
+.secondaryBtn{
+    padding:14px 23px;
+    border-radius:13px;
+    border:0;
     color:white;
-    padding:15px 27px;
-    border-radius:14px;
-    border:none;
-    font-size:15px;
     font-weight:bold;
     cursor:pointer;
 }
 
-.secondaryBtn{
-    background:#121827;
-    color:white;
-    padding:15px 27px;
-    border-radius:14px;
-    border:1px solid #273149;
-    font-size:15px;
-    cursor:pointer;
+.mainBtn{
+    background:linear-gradient(135deg,#7c3aed,#2563eb);
 }
 
-/* Search */
+.secondaryBtn{
+    background:#121827;
+    border:1px solid #29344b;
+}
 
 .searchBox{
     max-width:750px;
     margin:20px auto 0;
     display:flex;
-    background:#111827;
+    background:#101624;
     border:1px solid #263149;
-    border-radius:18px;
-    padding:7px;
+    border-radius:17px;
+    padding:6px;
 }
 
 .searchBox input{
     flex:1;
     background:transparent;
-    border:none;
-    outline:none;
+    border:0;
+    outline:0;
     color:white;
     padding:13px;
     font-size:14px;
 }
 
 .searchBox button{
-    border:none;
-    border-radius:13px;
-    padding:0 22px;
     background:#7c3aed;
     color:white;
+    border:0;
+    border-radius:12px;
+    padding:0 20px;
+    cursor:pointer;
     font-weight:bold;
 }
-
-/* Section */
 
 section{
     max-width:1200px;
     margin:auto;
-    padding:70px 20px;
+    padding:65px 18px;
 }
 
 .sectionTitle{
     text-align:center;
-    margin-bottom:35px;
+    margin-bottom:32px;
 }
 
 .sectionTitle h2{
-    font-size:32px;
-    margin-bottom:12px;
+    font-size:30px;
+    margin-bottom:10px;
 }
 
 .sectionTitle p{
-    color:#8491a7;
+    color:#7f8ba0;
+    font-size:13px;
 }
 
-/* Categories */
+/* categories */
 
 .categories{
     display:grid;
     grid-template-columns:repeat(4,1fr);
-    gap:15px;
+    gap:14px;
 }
 
 .category{
     background:#101624;
     border:1px solid #202b41;
     border-radius:18px;
-    padding:25px 15px;
+    padding:23px 12px;
     text-align:center;
     cursor:pointer;
-    transition:.3s;
+    transition:.25s;
 }
 
 .category:hover{
-    transform:translateY(-5px);
-    border-color:#6d5ce7;
-    background:#141b2c;
+    transform:translateY(-4px);
+    border-color:#725ce7;
 }
 
 .categoryIcon{
-    font-size:32px;
-    margin-bottom:12px;
+    font-size:30px;
+    margin-bottom:10px;
 }
 
 .category h3{
-    font-size:15px;
+    font-size:14px;
 }
 
 .category p{
-    margin-top:8px;
-    color:#718096;
-    font-size:12px;
+    color:#69768c;
+    font-size:11px;
+    margin-top:7px;
 }
 
-/* Services */
+/* services */
 
 .services{
     display:grid;
     grid-template-columns:repeat(3,1fr);
-    gap:20px;
+    gap:18px;
 }
 
 .service{
@@ -282,140 +266,170 @@ section{
     border:1px solid #202b41;
     border-radius:20px;
     overflow:hidden;
-    transition:.3s;
+    transition:.25s;
 }
 
 .service:hover{
-    transform:translateY(-5px);
-    border-color:#6d5ce7;
+    transform:translateY(-4px);
+    border-color:#725ce7;
 }
 
 .serviceImage{
-    height:170px;
-    background:linear-gradient(135deg,#312e81,#1e3a8a);
+    height:145px;
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:55px;
+    font-size:52px;
+    background:linear-gradient(135deg,#312e81,#1e3a8a);
 }
 
 .serviceContent{
-    padding:20px;
+    padding:18px;
 }
 
 .serviceTag{
     color:#a78bfa;
-    font-size:12px;
+    font-size:11px;
 }
 
 .service h3{
-    margin:10px 0;
+    margin:9px 0;
     font-size:17px;
 }
 
 .service p{
-    color:#8995a8;
-    font-size:13px;
+    color:#8793a7;
     line-height:1.8;
+    font-size:12px;
 }
 
 .serviceBottom{
-    margin-top:18px;
     display:flex;
     justify-content:space-between;
     align-items:center;
+    gap:8px;
+    margin-top:17px;
 }
 
 .price{
+    font-size:12px;
     font-weight:bold;
-    color:#fff;
+}
+
+.orderBtn,
+.deleteBtn{
+    border:0;
+    border-radius:9px;
+    padding:8px 11px;
+    color:white;
+    cursor:pointer;
 }
 
 .orderBtn{
     background:#1d4ed8;
-    border:none;
-    color:#fff;
-    border-radius:10px;
-    padding:9px 13px;
+}
+
+.deleteBtn{
+    background:#451a24;
+    margin-right:5px;
+}
+
+/* add service */
+
+.addBox{
+    max-width:700px;
+    margin:auto;
+    background:#101624;
+    border:1px solid #263149;
+    border-radius:25px;
+    padding:25px;
+}
+
+.formRow{
+    margin-bottom:16px;
+}
+
+.formRow label{
+    display:block;
+    margin-bottom:8px;
+    font-size:13px;
+    color:#cbd5e1;
+}
+
+.formRow input,
+.formRow select,
+.formRow textarea{
+    width:100%;
+    background:#080d18;
+    color:white;
+    border:1px solid #29344b;
+    border-radius:11px;
+    padding:12px;
+    outline:none;
+}
+
+.formRow textarea{
+    min-height:100px;
+    resize:vertical;
+}
+
+.formRow input:focus,
+.formRow select:focus,
+.formRow textarea:focus{
+    border-color:#7c3aed;
+}
+
+.publishBtn{
+    width:100%;
+    border:0;
+    border-radius:12px;
+    padding:14px;
+    background:linear-gradient(135deg,#7c3aed,#2563eb);
+    color:white;
+    font-weight:bold;
     cursor:pointer;
 }
 
-/* About */
+/* about */
 
 .about{
-    background:linear-gradient(
-        135deg,
-        rgba(124,58,237,.12),
-        rgba(37,99,235,.08)
-    );
-    border:1px solid #242e45;
-    border-radius:28px;
-    padding:50px;
+    background:linear-gradient(135deg,#171329,#0f1b35);
+    border:1px solid #29344b;
+    border-radius:25px;
+    padding:40px 25px;
     text-align:center;
 }
 
 .about h2{
-    font-size:32px;
     margin-bottom:15px;
 }
 
 .about p{
-    color:#94a3b8;
-    line-height:2;
     max-width:700px;
     margin:auto;
+    color:#929daf;
+    line-height:2;
+    font-size:14px;
 }
-
-/* Stats */
-
-.stats{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:15px;
-    margin-top:30px;
-}
-
-.stat{
-    background:#101624;
-    border:1px solid #202b41;
-    border-radius:18px;
-    padding:25px;
-    text-align:center;
-}
-
-.stat strong{
-    display:block;
-    font-size:28px;
-    margin-bottom:7px;
-}
-
-.stat span{
-    color:#7d899d;
-    font-size:13px;
-}
-
-/* Footer */
 
 footer{
     border-top:1px solid #1d2638;
-    margin-top:50px;
-    padding:40px 20px;
+    padding:35px 20px;
     text-align:center;
-    color:#6f7b90;
-}
-
-.footerLogo{
-    color:white;
-    font-size:22px;
-    font-weight:bold;
-    margin-bottom:10px;
-}
-
-footer p{
+    color:#69758a;
     font-size:12px;
 }
 
-/* Mobile */
+.empty{
+    grid-column:1/-1;
+    text-align:center;
+    padding:40px;
+    color:#657186;
+    border:1px dashed #29344b;
+    border-radius:18px;
+}
+
+/* mobile */
 
 @media(max-width:800px){
 
@@ -424,33 +438,37 @@ footer p{
     }
 
     .navbar{
-        padding:12px 15px;
+        padding:11px 14px;
     }
 
     .logo{
-        font-size:21px;
+        font-size:20px;
     }
 
     .logoIcon{
-        width:38px;
-        height:38px;
+        width:37px;
+        height:37px;
+    }
+
+    .navButtons .login{
+        display:none;
     }
 
     .btn{
-        padding:9px 11px;
-        font-size:12px;
+        padding:9px 12px;
+        font-size:11px;
     }
 
     .hero{
-        padding:65px 18px 50px;
+        padding:60px 16px 45px;
     }
 
     .hero h1{
-        font-size:40px;
+        font-size:38px;
     }
 
     .hero p{
-        font-size:14px;
+        font-size:13px;
     }
 
     .searchBox{
@@ -458,7 +476,7 @@ footer p{
     }
 
     .searchBox button{
-        padding:0 15px;
+        padding:0 13px;
     }
 
     .categories{
@@ -468,30 +486,17 @@ footer p{
     .services{
         grid-template-columns:1fr;
     }
-
-    .about{
-        padding:30px 20px;
-    }
-
-    .stats{
-        grid-template-columns:1fr;
-    }
 }
 
 @media(max-width:400px){
 
-    .navButtons .btnLogin{
-        display:none;
-    }
-
     .hero h1{
-        font-size:34px;
+        font-size:33px;
     }
 
     .categories{
-        gap:10px;
+        gap:9px;
     }
-
 }
 </style>
 </head>
@@ -511,12 +516,12 @@ footer p{
     <a href="#home">خانه</a>
     <a href="#categories">دسته‌بندی‌ها</a>
     <a href="#services">خدمات</a>
-    <a href="#about">درباره وارش</a>
+    <a href="#add">ثبت خدمت</a>
 </div>
 
 <div class="navButtons">
-    <button class="btn btnLogin" onclick="login()">ورود</button>
-    <button class="btn btnRegister" onclick="register()">ثبت‌نام</button>
+    <button class="btn login" onclick="showLogin()">ورود</button>
+    <button class="btn register" onclick="showRegister()">ثبت‌نام</button>
 </div>
 
 </nav>
@@ -531,42 +536,40 @@ footer p{
 <div class="hero" id="home">
 
 <div class="badge">
-    ✨ بازار خدمات آنلاین وارش
+✨ بازار خدمات آنلاین وارش
 </div>
 
 <h1>
-    هر خدمتی که می‌خواهی،
-    <br>
-    <span class="gradient">اینجا پیداش کن</span>
+هر خدمتی که می‌خواهی،
+<br>
+<span class="gradient">اینجا پیداش کن</span>
 </h1>
 
 <p>
-    وارش بستری برای پیدا کردن و سفارش خدمات مختلف است؛
-    جایی که می‌توانی خدمات موردنیازت را راحت‌تر پیدا کنی.
+در وارش می‌توانی خدمات مختلف را پیدا کنی،
+خدمت موردنیازت را انتخاب کنی و برای سفارش آن اقدام کنی.
 </p>
 
 <div class="heroButtons">
 
 <button class="mainBtn"
 onclick="document.getElementById('services').scrollIntoView()">
-    🔎 پیدا کردن خدمت
+🔎 مشاهده خدمات
 </button>
 
 <button class="secondaryBtn"
-onclick="document.getElementById('categories').scrollIntoView()">
-    مشاهده دسته‌بندی‌ها
+onclick="document.getElementById('add').scrollIntoView()">
+➕ ثبت خدمت
 </button>
 
 </div>
-
 
 <div class="searchBox">
 
 <input
 id="searchInput"
-type="text"
 placeholder="مثلاً طراحی لوگو، تدوین، برنامه‌نویسی..."
-onkeyup="searchServices()">
+oninput="searchServices()">
 
 <button onclick="searchServices()">
 جست‌وجو
@@ -585,61 +588,58 @@ onkeyup="searchServices()">
 
 <h2>دسته‌بندی خدمات</h2>
 
-<p>
-خدمت موردنظرت را از بین دسته‌بندی‌ها پیدا کن
-</p>
+<p>خدمت موردنظرت را انتخاب کن</p>
 
 </div>
 
-
 <div class="categories">
 
-<div class="category" onclick="categorySearch('طراحی')">
+<div class="category" onclick="chooseCategory('طراحی')">
 <div class="categoryIcon">🎨</div>
 <h3>طراحی</h3>
 <p>لوگو، بنر و گرافیک</p>
 </div>
 
-<div class="category" onclick="categorySearch('برنامه')">
+<div class="category" onclick="chooseCategory('برنامه‌نویسی')">
 <div class="categoryIcon">💻</div>
 <h3>برنامه‌نویسی</h3>
 <p>سایت و اپلیکیشن</p>
 </div>
 
-<div class="category" onclick="categorySearch('تولید')">
+<div class="category" onclick="chooseCategory('تولید محتوا')">
 <div class="categoryIcon">🎬</div>
 <h3>تولید محتوا</h3>
-<p>ویدیو و محتوای دیجیتال</p>
+<p>ویدیو و محتوا</p>
 </div>
 
-<div class="category" onclick="categorySearch('نویسندگی')">
+<div class="category" onclick="chooseCategory('نویسندگی')">
 <div class="categoryIcon">✍️</div>
 <h3>نویسندگی</h3>
-<p>مقاله و متن</p>
+<p>متن و مقاله</p>
 </div>
 
-<div class="category" onclick="categorySearch('ترجمه')">
+<div class="category" onclick="chooseCategory('ترجمه')">
 <div class="categoryIcon">🌐</div>
 <h3>ترجمه</h3>
-<p>ترجمه متون مختلف</p>
+<p>ترجمه متون</p>
 </div>
 
-<div class="category" onclick="categorySearch('آموزش')">
+<div class="category" onclick="chooseCategory('آموزش')">
 <div class="categoryIcon">📚</div>
 <h3>آموزش</h3>
-<p>آموزش مهارت‌ها</p>
+<p>مهارت و آموزش</p>
 </div>
 
-<div class="category" onclick="categorySearch('موسیقی')">
+<div class="category" onclick="chooseCategory('موسیقی')">
 <div class="categoryIcon">🎵</div>
 <h3>موسیقی</h3>
-<p>تدوین و خدمات صوتی</p>
+<p>صدا و موسیقی</p>
 </div>
 
-<div class="category" onclick="categorySearch('سایر')">
+<div class="category" onclick="chooseCategory('سایر')">
 <div class="categoryIcon">✨</div>
-<h3>سایر خدمات</h3>
-<p>خدمات متنوع دیگر</p>
+<h3>سایر</h3>
+<p>خدمات متنوع</p>
 </div>
 
 </div>
@@ -653,127 +653,90 @@ onkeyup="searchServices()">
 
 <div class="sectionTitle">
 
-<h2>خدمات پیشنهادی</h2>
+<h2>خدمات وارش</h2>
+
+<p>خدمات منتشرشده در این دستگاه</p>
+
+</div>
+
+<div class="services" id="serviceList"></div>
+
+</section>
+
+
+<!-- ADD SERVICE -->
+
+<section id="add">
+
+<div class="sectionTitle">
+
+<h2>ثبت خدمت جدید</h2>
 
 <p>
-چند نمونه از خدماتی که می‌توانند در وارش ارائه شوند
+خدمت خود را معرفی کن تا در لیست خدمات وارش نمایش داده شود.
 </p>
 
 </div>
 
+<div class="addBox">
 
-<div class="services" id="serviceList">
+<div class="formRow">
 
+<label>نام خدمت</label>
 
-<div class="service" data-name="طراحی لوگو">
+<input
+id="serviceName"
+placeholder="مثلاً طراحی لوگو">
 
-<div class="serviceImage">
-🎨
 </div>
 
-<div class="serviceContent">
 
-<span class="serviceTag">
-طراحی
-</span>
+<div class="formRow">
 
-<h3>طراحی لوگو</h3>
+<label>دسته‌بندی</label>
 
-<p>
-طراحی لوگوی اختصاصی برای برند، کانال یا کسب‌وکار.
-</p>
+<select id="serviceCategory">
 
-<div class="serviceBottom">
+<option value="طراحی">🎨 طراحی</option>
+<option value="برنامه‌نویسی">💻 برنامه‌نویسی</option>
+<option value="تولید محتوا">🎬 تولید محتوا</option>
+<option value="نویسندگی">✍️ نویسندگی</option>
+<option value="ترجمه">🌐 ترجمه</option>
+<option value="آموزش">📚 آموزش</option>
+<option value="موسیقی">🎵 موسیقی</option>
+<option value="سایر">✨ سایر</option>
 
-<span class="price">
-شروع از ۲۰۰ هزار تومان
-</span>
+</select>
 
-<button class="orderBtn"
-onclick="orderService('طراحی لوگو')">
-سفارش
+</div>
+
+
+<div class="formRow">
+
+<label>قیمت</label>
+
+<input
+id="servicePrice"
+type="number"
+placeholder="مثلاً 200000">
+
+</div>
+
+
+<div class="formRow">
+
+<label>توضیحات</label>
+
+<textarea
+id="serviceDescription"
+placeholder="توضیح کوتاهی درباره خدمت بنویس..."></textarea>
+
+</div>
+
+
+<button class="publishBtn" onclick="addService()">
+🚀 انتشار خدمت
 </button>
-
-</div>
-
-</div>
-
-</div>
-
-
-
-<div class="service" data-name="ساخت سایت">
-
-<div class="serviceImage">
-💻
-</div>
-
-<div class="serviceContent">
-
-<span class="serviceTag">
-برنامه‌نویسی
-</span>
-
-<h3>ساخت سایت</h3>
-
-<p>
-طراحی و ساخت وب‌سایت متناسب با نیاز شما.
-</p>
-
-<div class="serviceBottom">
-
-<span class="price">
-شروع از ۵۰۰ هزار تومان
-</span>
-
-<button class="orderBtn"
-onclick="orderService('ساخت سایت')">
-سفارش
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-
-
-<div class="service" data-name="تدوین ویدیو">
-
-<div class="serviceImage">
-🎬
-</div>
-
-<div class="serviceContent">
-
-<span class="serviceTag">
-تولید محتوا
-</span>
-
-<h3>تدوین ویدیو</h3>
-
-<p>
-تدوین و آماده‌سازی ویدیو برای شبکه‌های اجتماعی.
-</p>
-
-<div class="serviceBottom">
-
-<span class="price">
-شروع از ۱۵۰ هزار تومان
-</span>
-
-<button class="orderBtn"
-onclick="orderService('تدوین ویدیو')">
-سفارش
-</button>
-
-</div>
-
-</div>
-
-</div>
-
 
 </div>
 
@@ -782,38 +745,17 @@ onclick="orderService('تدوین ویدیو')">
 
 <!-- ABOUT -->
 
-<section id="about">
+<section>
 
 <div class="about">
 
-<h2>
-وارش چیست؟
-</h2>
+<h2>وارش چیست؟</h2>
 
 <p>
-وارش یک پلتفرم آنلاین برای پیدا کردن و سفارش خدمات است.
+وارش یک پلتفرم برای پیدا کردن و سفارش خدمات مختلف است.
 هدف وارش این است که ارتباط بین مشتری و ارائه‌دهنده خدمات
 را ساده‌تر و منظم‌تر کند.
 </p>
-
-<div class="stats">
-
-<div class="stat">
-<strong>∞</strong>
-<span>امکان اضافه شدن خدمات مختلف</span>
-</div>
-
-<div class="stat">
-<strong>⚡</strong>
-<span>جست‌وجوی سریع خدمات</span>
-</div>
-
-<div class="stat">
-<strong>📱</strong>
-<span>طراحی شده برای موبایل</span>
-</div>
-
-</div>
 
 </div>
 
@@ -824,58 +766,288 @@ onclick="orderService('تدوین ویدیو')">
 
 <footer>
 
-<div class="footerLogo">
+<div>
 وارش
 </div>
 
-<p>
-© 2026 وارش | بازار خدمات آنلاین
-</p>
+<br>
+
+© 2026 Varesh
 
 </footer>
 
 
 <script>
 
-/* Search */
+/* داده اولیه */
 
-function searchServices(){
+let services = JSON.parse(
+    localStorage.getItem("varesh_services") || "[]"
+);
 
-    const input =
-        document.getElementById("searchInput")
-        .value
-        .trim()
-        .toLowerCase();
 
-    const services =
-        document.querySelectorAll(".service");
+/* آیکون دسته بندی */
 
-    services.forEach(service => {
+function getIcon(category){
 
-        const name =
-            service.dataset.name.toLowerCase();
+    const icons = {
+        "طراحی":"🎨",
+        "برنامه‌نویسی":"💻",
+        "تولید محتوا":"🎬",
+        "نویسندگی":"✍️",
+        "ترجمه":"🌐",
+        "آموزش":"📚",
+        "موسیقی":"🎵",
+        "سایر":"✨"
+    };
 
-        if(
-            input === "" ||
-            name.includes(input)
-        ){
+    return icons[category] || "✨";
+}
 
-            service.style.display = "block";
 
-        }else{
+/* نمایش خدمات */
 
-            service.style.display = "none";
+function renderServices(list = services){
 
-        }
+    const box =
+        document.getElementById("serviceList");
+
+    if(list.length === 0){
+
+        box.innerHTML = `
+        <div class="empty">
+            هنوز خدمتی ثبت نشده است.
+            <br><br>
+            اولین خدمت را از بخش «ثبت خدمت جدید» اضافه کن.
+        </div>
+        `;
+
+        return;
+    }
+
+    box.innerHTML = "";
+
+    list.forEach((service,index)=>{
+
+        const card = document.createElement("div");
+
+        card.className = "service";
+
+        card.innerHTML = `
+
+        <div class="serviceImage">
+            ${getIcon(service.category)}
+        </div>
+
+        <div class="serviceContent">
+
+            <span class="serviceTag">
+                ${escapeHTML(service.category)}
+            </span>
+
+            <h3>
+                ${escapeHTML(service.name)}
+            </h3>
+
+            <p>
+                ${escapeHTML(service.description)}
+            </p>
+
+            <div class="serviceBottom">
+
+                <span class="price">
+                    ${Number(service.price).toLocaleString("fa-IR")} تومان
+                </span>
+
+                <div>
+
+                    <button
+                    class="orderBtn"
+                    onclick="orderService('${escapeJS(service.name)}')">
+                    سفارش
+                    </button>
+
+                    <button
+                    class="deleteBtn"
+                    onclick="deleteService(${index})">
+                    حذف
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+        `;
+
+        box.appendChild(card);
 
     });
 
 }
 
 
-/* Category */
+/* ثبت خدمت */
 
-function categorySearch(category){
+function addService(){
+
+    const name =
+        document.getElementById("serviceName").value.trim();
+
+    const category =
+        document.getElementById("serviceCategory").value;
+
+    const price =
+        document.getElementById("servicePrice").value;
+
+    const description =
+        document.getElementById("serviceDescription").value.trim();
+
+
+    if(!name){
+
+        alert("لطفاً نام خدمت را وارد کن.");
+        return;
+
+    }
+
+    if(!price || Number(price) <= 0){
+
+        alert("لطفاً قیمت معتبر وارد کن.");
+        return;
+
+    }
+
+    if(!description){
+
+        alert("لطفاً توضیحات خدمت را وارد کن.");
+        return;
+
+    }
+
+
+    const newService = {
+
+        id:Date.now(),
+
+        name:name,
+
+        category:category,
+
+        price:Number(price),
+
+        description:description
+
+    };
+
+
+    services.unshift(newService);
+
+
+    localStorage.setItem(
+        "varesh_services",
+        JSON.stringify(services)
+    );
+
+
+    document.getElementById("serviceName").value = "";
+
+    document.getElementById("servicePrice").value = "";
+
+    document.getElementById("serviceDescription").value = "";
+
+
+    renderServices();
+
+
+    document
+    .getElementById("services")
+    .scrollIntoView();
+
+
+    alert("خدمت با موفقیت منتشر شد! 🎉");
+
+}
+
+
+/* حذف */
+
+function deleteService(index){
+
+    const ok =
+        confirm("آیا مطمئنی می‌خواهی این خدمت حذف شود؟");
+
+    if(!ok) return;
+
+
+    services.splice(index,1);
+
+
+    localStorage.setItem(
+        "varesh_services",
+        JSON.stringify(services)
+    );
+
+
+    renderServices();
+
+}
+
+
+/* سفارش */
+
+function orderService(name){
+
+    alert(
+        "درخواست سفارش برای «" +
+        name +
+        "» ثبت شد.\n\n" +
+        "سیستم سفارش واقعی در مرحله بعد به وارش اضافه می‌شود."
+    );
+
+}
+
+
+/* جست‌وجو */
+
+function searchServices(){
+
+    const text =
+        document
+        .getElementById("searchInput")
+        .value
+        .trim()
+        .toLowerCase();
+
+
+    if(!text){
+
+        renderServices();
+        return;
+
+    }
+
+
+    const result =
+        services.filter(service =>
+
+            service.name.toLowerCase().includes(text) ||
+
+            service.category.toLowerCase().includes(text) ||
+
+            service.description.toLowerCase().includes(text)
+
+        );
+
+
+    renderServices(result);
+
+}
+
+
+/* انتخاب دسته بندی */
+
+function chooseCategory(category){
 
     document
     .getElementById("searchInput")
@@ -890,40 +1062,54 @@ function categorySearch(category){
 }
 
 
-/* Order */
+/* ورود */
 
-function orderService(service){
+function showLogin(){
 
     alert(
-        "سفارش «" +
-        service +
-        "» در نسخه فعلی نمایشی است.\n\n" +
-        "سیستم ثبت سفارش واقعی را در مرحله بعد اضافه می‌کنیم."
+        "سیستم ورود واقعی در مرحله ساخت حساب کاربری اضافه می‌شود."
     );
 
 }
 
 
-/* Login */
+/* ثبت نام */
 
-function login(){
+function showRegister(){
 
     alert(
-        "سیستم ورود کاربران در مرحله بعد فعال می‌شود."
+        "سیستم ثبت‌نام واقعی در مرحله ساخت حساب کاربری اضافه می‌شود."
     );
 
 }
 
 
-/* Register */
+/* جلوگیری از خراب شدن HTML */
 
-function register(){
+function escapeHTML(text){
 
-    alert(
-        "سیستم ثبت‌نام کاربران در مرحله بعد فعال می‌شود."
-    );
+    return String(text)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 
 }
+
+
+function escapeJS(text){
+
+    return String(text)
+    .replace(/\\/g,"\\\\")
+    .replace(/'/g,"\\'");
+
+}
+
+
+/* شروع */
+
+renderServices();
 
 </script>
 
